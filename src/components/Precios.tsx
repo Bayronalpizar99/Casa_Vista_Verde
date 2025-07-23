@@ -27,7 +27,6 @@ export function Precios() {
   const linkColor = useColorModeValue('light.accent', 'dark.accent');
   const dividerColor = useColorModeValue('gray.200', 'gray.700');
   
-  // Se define el color del brillo para los temas.
   const glowColor = useColorModeValue('#0b6f3c', '#90f4c0');
 
   return (
@@ -55,14 +54,12 @@ export function Precios() {
             viewport={{ once: false, amount: 0.5 }}
             transition={{ duration: 0.6 }}
             h="100%"
-            // --- MODIFICACIÓN AQUÍ ---
-            // 1. El borde y el brillo ahora son el estado por defecto.
             borderColor={glowColor}
-            shadow={`0 0 15px ${glowColor}`}
-            // 2. El hover solo levanta la tarjeta y aumenta un poco el brillo.
+            // --- MODIFICACIÓN PARA REDUCIR MÁS EL BRILLO ---
+            shadow={`0 0 2px ${glowColor}`}
             _hover={{
               transform: 'translateY(-5px)',
-              shadow: `0 0 20px ${glowColor}`,
+              shadow: `0 0 6px ${glowColor}`,
             }}
           >
             <PriceLineItem label="Precio por noche (base 2 personas)" value="₡35,000" />
@@ -86,13 +83,12 @@ export function Precios() {
             viewport={{ once: false, amount: 0.5 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             h="100%"
-            // --- MODIFICACIÓN AQUÍ ---
-            // 3. Se replica el efecto en la segunda tarjeta.
             borderColor={glowColor}
-            shadow={`0 0 15px ${glowColor}`}
+            // --- MODIFICACIÓN PARA REDUCIR MÁS EL BRILLO ---
+            shadow={`0 0 4px ${glowColor}`}
             _hover={{
               transform: 'translateY(-5px)',
-              shadow: `0 0 20px ${glowColor}`,
+              shadow: `0 0 8px ${glowColor}`,
             }}
           >
             <HStack>

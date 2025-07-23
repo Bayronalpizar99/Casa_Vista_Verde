@@ -1,7 +1,7 @@
 import {
   Box, Heading, Text, VStack, SimpleGrid, Image, Button, useColorModeValue,
   List, ListItem, ListIcon, useDisclosure, Modal, ModalOverlay, ModalContent, ModalHeader,
-  ModalCloseButton, ModalBody, ModalFooter, IconButton, Flex
+  ModalCloseButton, ModalBody, ModalFooter, IconButton
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import { FaBed, FaWifi, FaMountain, FaCoffee, FaCheckCircle, FaTree } from 'react-icons/fa';
@@ -76,15 +76,12 @@ const RoomCard = ({ room, onOpen, index }: { room: typeof roomsData[0], onOpen: 
         overflow="hidden"
         transition="all 0.3s ease-in-out"
         h="100%"
-        // --- MODIFICACIÓN AQUÍ ---
-        // 1. El borde y la sombra de brillo ahora son el estado por defecto.
         borderColor={glowColor}
-        shadow={`0 0 15px ${glowColor}`}
+        shadow={`0 0 2px ${glowColor}`}
         
-        // 2. Al pasar el cursor, solo se aplica el levantamiento y un leve aumento del brillo.
         _hover={{
           transform: 'translateY(-5px)',
-          shadow: `0 0 20px ${glowColor}`,
+          shadow: `0 0 6px ${glowColor}`,
         }}
       >
         <Image src={room.images[0]} alt={`Foto de ${room.name}`} h="250px" w="100%" objectFit="cover" />
@@ -112,8 +109,6 @@ const RoomDetailModal = ({ isOpen, onClose, room }: { isOpen: boolean, onClose: 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const modalBg = useColorModeValue('white', '#0b0f0d');
   const headerColor = useColorModeValue('light.primary', 'white');
-  const buttonBg = useColorModeValue('light.accent', 'dark.accent');
-  const buttonColor = useColorModeValue('light.primary', 'dark.primary');
   const modalBorderColor = useColorModeValue('#0b6f3c', '#90f4c0');
 
   if (!isOpen && currentImageIndex !== 0) {
@@ -132,7 +127,8 @@ const RoomDetailModal = ({ isOpen, onClose, room }: { isOpen: boolean, onClose: 
         bg={modalBg}
         borderWidth="2px"
         borderColor={modalBorderColor}
-        boxShadow={`0 0 10px ${modalBorderColor}`}
+        // --- MODIFICACIÓN 1: Se reduce el brillo del borde para que coincida con las tarjetas ---
+        boxShadow={`0 0 6px ${modalBorderColor}`}
       >
         <ModalHeader color={headerColor}>{room.name}</ModalHeader>
         <ModalCloseButton />
@@ -148,11 +144,9 @@ const RoomDetailModal = ({ isOpen, onClose, room }: { isOpen: boolean, onClose: 
           </Box>
         </ModalBody>
         <ModalFooter>
+          {/* --- MODIFICACIÓN 2: Se elimina el botón "Reservar Ahora" --- */}
           <Button variant="ghost" mr={3} onClick={onClose}>
             Cerrar
-          </Button>
-          <Button bg={buttonBg} color={buttonColor} _hover={{ opacity: 0.9 }}>
-            Reservar Ahora
           </Button>
         </ModalFooter>
       </ModalContent>

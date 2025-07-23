@@ -29,6 +29,10 @@ export function Ubicacion() {
   const dividerColor = useColorModeValue('gray.300', 'gray.700');
   const glowColor = useColorModeValue('#0b6f3c', '#90f4c0');
 
+  // --- CORRECCIÓN FINAL DEL MAPA ---
+  // Se utiliza la URL proporcionada por el usuario.
+  const mapSrc = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245.40863823927725!2d-84.4071865!3d10.218105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa067ece1287a01%3A0xdfcbd943e8a8e675!2sCasa%20Vista%20Verde!5e0!3m2!1ses!2scr!4v1752643631990!5m2!1ses!2scr";
+
   return (
     <Flex
       id="ubicacion"
@@ -47,18 +51,15 @@ export function Ubicacion() {
         viewport={{ once: false, amount: 0.3 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
         
-        // --- MODIFICACIÓN AQUÍ ---
         borderColor={glowColor}
-        boxShadow={`0 0 15px ${glowColor}`}
-        // Se aplica un borde de 2px en todos los lados para móvil
-        borderWidth={{ base: "2px", lg: "0px" }} 
-        // En desktop, se especifica el borde para cada lado, omitiendo el izquierdo
+        boxShadow={`0 0 8px ${glowColor}`}
+        borderWidth={{ base: "2px", lg: "0" }}
         borderTopWidth={{ lg: "2px" }}
         borderRightWidth={{ lg: "2px" }}
         borderBottomWidth={{ lg: "2px" }}
         
         _hover={{
-          boxShadow: `0 0 20px ${glowColor}`,
+          boxShadow: `0 0 10px ${glowColor}`,
         }}
       >
         <Image
@@ -100,7 +101,7 @@ export function Ubicacion() {
             </Heading>
             <Box w="100%" h="290px" borderRadius="md" shadow="md" overflow="hidden">
               <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245.40863823927725!2d-84.4071865!3d10.218105!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa067ece1287a01%3A0xdfcbd943e8a8e675!2sCasa%20Vista%20Verde!5e0!3m2!1ses!2scr!4v1752643631990!5m2!1ses!2scr"
+                  src={mapSrc}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -115,7 +116,7 @@ export function Ubicacion() {
             </HStack>
           </VStack>
 
-          <VStack align="start" spacing={4} flex="1" color={textColor}>
+          <VStack align="start" spacing={4} flex="1" color={textColor} pl={{ md: 6 }}>
             <Heading as="h3" size="lg" color={headingColor}>
               Tesoros de Zarcero
             </Heading>

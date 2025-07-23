@@ -10,7 +10,7 @@ export const translations = {
     contacto: 'Contacto',
     // --- NUEVOS TEXTOS DEL HERO ---
     heroTitle: 'Tu Refugio en la Naturaleza',
-    heroSubtitle: 'Descubre la serenidad y el confort en el corazón de las montañas de Zarcero.',
+    heroSubtitle: 'Descubre la serenidad y el confort en el corazón de las montañas de Tapezco.',
     reservarAhora: 'Reservar Ahora',
   },
   en: {
@@ -23,7 +23,7 @@ export const translations = {
     contacto: 'Contact',
     // --- NEW HERO TEXTS ---
     heroTitle: 'Your Nature Getaway',
-    heroSubtitle: 'Discover serenity and comfort in the heart of the Zarcero mountains.',
+    heroSubtitle: 'Discover serenity and comfort in the heart of the Tapezco mountains.',
     reservarAhora: 'Book Now',
   },
 };
