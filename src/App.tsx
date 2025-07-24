@@ -8,6 +8,7 @@ import { Experiencias } from './components/Experiencias';
 import { Precios } from './components/Precios';
 import { CallToAction } from './components/CallToAction';
 import { Footer } from './components/Footer';
+import { ScrollToTopButton } from './components/ScrollToTopButton'; 
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <CallToAction />
       </main>
       <Footer />
+      <ScrollToTopButton />
     </Box>
   );
 }

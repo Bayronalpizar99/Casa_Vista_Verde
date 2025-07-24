@@ -1,4 +1,3 @@
-// src/translations.ts
 export const translations = {
   es: {
     // --- Textos del Navbar ---
@@ -8,10 +7,107 @@ export const translations = {
     ubicacion: 'Ubicación',
     precios: 'Precios',
     contacto: 'Contacto',
-    // --- NUEVOS TEXTOS DEL HERO ---
+
+    // --- Textos del Hero ---
     heroTitle: 'Tu Refugio en la Naturaleza',
     heroSubtitle: 'Descubre la serenidad y el confort en el corazón de las montañas de Tapezco.',
     reservarAhora: 'Reservar Ahora',
+
+    // --- Textos de Habitaciones ---
+    nuestrasHabitaciones: 'Nuestras Habitaciones',
+    habitacionesSubtitle: 'Cada espacio está diseñado para tu confort y descanso, combinando un estilo elegante con todas las comodidades modernas. Elige el refugio perfecto para tu estadía.',
+    verDetalles: 'Ver Detalles',
+    cerrar: 'Cerrar',
+    habitacion1Name: 'Habitación 1',
+    habitacion1Amenity1: 'Cama queen size',
+    habitacion1Amenity2: 'Baño privado',
+    habitacion1Amenity3: 'Pantalla de televisión',
+    habitacion2Name: 'Habitación 2',
+    habitacion2Amenity1: 'Cama matrimonial',
+    habitacion2Amenity2: 'Vista al Jardín',
+    habitacion2Amenity3: 'Wi-Fi de alta velocidad',
+    habitacion3Name: 'Habitación 3',
+    habitacion3Amenity1: 'Dos camas individuales',
+    habitacion3Amenity2: 'Vistas al jardín',
+    habitacion3Amenity3: 'Wi-Fi de alta velocidad',
+
+    // --- Textos de Experiencias ---
+    experienciasSubtitle: 'Más que un lugar para dormir, te ofrecemos espacios pensados para que disfrutes, te relajes y vivas una estadía memorable.',
+    balconTitle: "Balcón con Vistas",
+    balconDesc: "Disfruta de tu café matutino o una copa de vino al atardecer con vistas panorámicas que te robarán el aliento.",
+    cocinaTitle: "Cocina Equipada",
+    cocinaDesc: "Prepara tus platillos favoritos. Nuestra cocina cuenta con todo lo necesario para que te sientas como en casa.",
+    hogueraTitle: "Noches de Hoguera",
+    hogueraDesc: "Reúnete alrededor del fuego bajo un cielo estrellado. El lugar perfecto para crear recuerdos inolvidables.",
+    barTitle: "Mini Bar Privado",
+    barDesc: "Relájate y disfruta de una selección de bebidas a tu alcance para complementar tu estadía.",
+    fincaTitle: "La Finca",
+    fincaDesc: "Camina por nuestra finca y siéntete libre de consumir las hortalizas frescas que cultivamos durante tu estadía.",
+    juegosTitle: "Sala equipada con Juegos",
+    juegosDesc: "Diversión garantizada con una selección de los juegos de mesa más populares. ¡El plan perfecto para una noche en casa!",
+    verImagen: 'Ver imagen',
+    anterior: 'Anterior',
+    siguiente: 'Siguiente',
+
+    // --- Textos de Ubicacion ---
+    ubicacionTitle: 'Un Refugio en las Alturas de Tapezco',
+    ubicacionSubtitle: 'Estamos ubicados en las tranquilas montañas de Tapezco a tan solo 5 minutos de Zarcero, un lugar famoso por su aire fresco, sus paisajes verdes y su cultura auténtica.',
+    encuentranos: 'Encuéntranos',
+    direccionCompleta: 'Tapezco, Zarcero, Alajuela, Costa Rica',
+    tesorosDeZarcero: 'Tesoros de Zarcero',
+    parqueZarceroTitle: "Parque de Zarcero",
+    parqueZarceroDesc: "Admira el famoso jardín de esculturas en ciprés.",
+    iglesiaSanRafaelTitle: "Iglesia de San Rafael",
+    iglesiaSanRafaelDesc: "Una joya arquitectónica con hermosos acabados.",
+    gastronomiaLocalTitle: "Gastronomía Local",
+    gastronomiaLocalDesc: "Prueba la natilla, quesos frescos y bizcochos.",
+    cataratasCercanasTitle: "Cataratas Cercanas",
+    cataratasCercanasDesc: "Descubre caídas de agua y pozas de aguas celestes.",
+    airePuroTitle: "Aire Puro y Montaña",
+    airePuroDesc: "Respira, camina y disfruta de la paz de las alturas.",
+
+    // --- Textos de Precios ---
+    tarifasYPrecios: 'Tarifas y Precios',
+    preciosSubtitle: 'Nuestras tarifas son sencillas y transparentes, pensadas para que disfrutes al máximo tu estadía sin sorpresas.',
+    precioNoche: 'Precio por noche (base 2 personas)',
+    personaAdicional: 'Persona adicional por noche',
+    petFriendly: 'Somos pet friendly, monto por mascota',
+    aTenerEnCuenta: 'A tener en cuenta',
+    tenerEnCuenta1: 'La tarifa base es para 2 personas. Se pueden alojar hasta 6 personas en total.',
+    tenerEnCuenta2: 'Política de cancelación: Reembolso completo hasta 15 días antes de la llegada.',
+    tenerEnCuenta3: 'El check-in es a partir de las 3:00 PM y el check-out es hasta las 11:00 AM.',
+    listoParaTuEscapada: '¿Listo para tu escapada?',
+    contactanosPrompt: 'para realizar tu reserva.',
+
+    // --- Textos de CallToAction (CTA) ---
+    ctaTitle: 'La naturaleza y el frío te espera...',
+    reservarEstadia: 'Reservar mi estadía',
+    contactarWhatsApp: 'Contactar por WhatsApp',
+
+    // --- Textos del Footer ---
+    footerDireccion: 'Dirección',
+    footerCalle: 'Calle Los Murillo, 400 metros al oeste.',
+    footerLugar: 'Tapezco, Zarcero',
+    footerPais: 'Costa Rica',
+    derechosReservados: `© ${new Date().getFullYear()} Casa Vista Verde. Todos los derechos reservados.`,
+    politicaPrivacidad: 'Política de Privacidad',
+    desarrolladoPor: 'Desarrollado por',
+
+    // --- Textos del Modal de Reserva ---
+    solicitudReserva: 'Solicitud de Reserva',
+    nombreCompleto: 'Nombre Completo',
+    placeholderNombre: 'Tu nombre',
+    email: 'Correo Electrónico',
+    placeholderEmail: 'tu@email.com',
+    fechaLlegada: 'Fecha de Llegada',
+    fechaSalida: 'Fecha de Salida',
+    numHuespedes: 'Número de Huéspedes',
+    mensajeOpcional: 'Mensaje (Opcional)',
+    placeholderMensaje: '¿Alguna petición especial?',
+    cancelar: 'Cancelar',
+    enviarSolicitud: 'Enviar Solicitud',
+    toastTitle: 'Solicitud Enviada.',
+    toastDescription: 'Gracias por tu interés. Nos pondremos en contacto contigo pronto para confirmar la disponibilidad.',
   },
   en: {
     // --- Navbar Texts ---
@@ -21,9 +117,109 @@ export const translations = {
     ubicacion: 'Location',
     precios: 'Prices',
     contacto: 'Contact',
-    // --- NEW HERO TEXTS ---
+
+    // --- Hero Texts ---
     heroTitle: 'Your Nature Getaway',
     heroSubtitle: 'Discover serenity and comfort in the heart of the Tapezco mountains.',
     reservarAhora: 'Book Now',
+
+    // --- Room Texts ---
+    nuestrasHabitaciones: 'Our Rooms',
+    habitacionesSubtitle: 'Each space is designed for your comfort and rest, combining an elegant style with all modern amenities. Choose the perfect retreat for your stay.',
+    verDetalles: 'View Details',
+    cerrar: 'Close',
+    habitacion1Name: 'Room 1',
+    habitacion1Amenity1: 'Queen size bed',
+    habitacion1Amenity2: 'Private bathroom',
+    habitacion1Amenity3: 'Television screen',
+    habitacion2Name: 'Room 2',
+    habitacion2Amenity1: 'Double bed',
+    habitacion2Amenity2: 'Garden View',
+    habitacion2Amenity3: 'High speed Wi-Fi',
+    habitacion3Name: 'Room 3',
+    habitacion3Amenity1: 'Two single beds',
+    habitacion3Amenity2: 'Garden views',
+    habitacion3Amenity3: 'High speed Wi-Fi',
+
+    // --- Experience Texts ---
+    experienciasSubtitle: 'More than a place to sleep, we offer spaces designed for you to enjoy, relax, and have a memorable stay.',
+    balconTitle: "Balcony with Views",
+    balconDesc: "Enjoy your morning coffee or a glass of wine at sunset with breathtaking panoramic views.",
+    cocinaTitle: "Equipped Kitchen",
+    cocinaDesc: "Prepare your favorite dishes. Our kitchen has everything you need to feel at home.",
+    hogueraTitle: "Bonfire Nights",
+    hogueraDesc: "Gather around the fire under a starry sky. The perfect place to create unforgettable memories.",
+    barTitle: "Private Mini Bar",
+    barDesc: "Relax and enjoy a selection of drinks at your fingertips to complement your stay.",
+    fincaTitle: "The Farm",
+    fincaDesc: "Walk through our farm and feel free to consume the fresh vegetables we grow during your stay.",
+    juegosTitle: "Game Room",
+    juegosDesc: "Guaranteed fun with a selection of the most popular board games. The perfect plan for a night in!",
+    verImagen: 'View Image',
+    anterior: 'Previous',
+    siguiente: 'Next',
+
+    // --- Location Texts ---
+    ubicacionTitle: 'A Refuge in the Heights of Tapezco',
+    ubicacionSubtitle: 'We are located in the peaceful mountains of Tapezco, just 5 minutes from Zarcero, a place famous for its fresh air, green landscapes, and authentic culture.',
+    encuentranos: 'Find Us',
+    direccionCompleta: 'Tapezco, Zarcero, Alajuela, Costa Rica',
+    tesorosDeZarcero: 'Treasures of Zarcero',
+    parqueZarceroTitle: "Zarcero Park",
+    parqueZarceroDesc: "Admire the famous topiary garden.",
+    iglesiaSanRafaelTitle: "San Rafael Church",
+    iglesiaSanRafaelDesc: "An architectural gem with beautiful finishes.",
+    gastronomiaLocalTitle: "Local Gastronomy",
+    gastronomiaLocalDesc: "Try the local cream, fresh cheeses, and pastries.",
+    cataratasCercanasTitle: "Nearby Waterfalls",
+    cataratasCercanasDesc: "Discover waterfalls and celestial blue water pools.",
+    airePuroTitle: "Fresh Air and Mountains",
+    airePuroDesc: "Breathe, walk, and enjoy the peace of the highlands.",
+
+    // --- Price Texts ---
+    tarifasYPrecios: 'Rates and Prices',
+    preciosSubtitle: 'Our rates are simple and transparent, designed for you to enjoy your stay to the fullest without surprises.',
+    precioNoche: 'Price per night (2-person basis)',
+    personaAdicional: 'Additional person per night',
+    petFriendly: 'We are pet-friendly, fee per pet',
+    aTenerEnCuenta: 'Keep in mind',
+    tenerEnCuenta1: 'The base rate is for 2 people. Up to 6 guests can be accommodated in total.',
+    tenerEnCuenta2: 'Cancellation policy: Full refund up to 15 days before arrival.',
+    tenerEnCuenta3: 'Check-in is from 3:00 PM and check-out is until 11:00 AM.',
+    listoParaTuEscapada: 'Ready for your getaway?',
+    contactanosPrompt: 'to make your reservation.',
+
+    // --- CallToAction (CTA) Texts ---
+    ctaTitle: 'Nature and the cold await...',
+    reservarEstadia: 'Book my stay',
+    contactarWhatsApp: 'Contact via WhatsApp',
+
+    // --- Footer Texts ---
+    footerDireccion: 'Address',
+    footerCalle: 'Calle Los Murillo, 400 meters west.',
+    footerLugar: 'Tapezco, Zarcero',
+    footerPais: 'Costa Rica',
+    derechosReservados: `© ${new Date().getFullYear()} Casa Vista Verde. All rights reserved.`,
+    politicaPrivacidad: 'Privacy Policy',
+    desarrolladoPor: 'Developed by',
+
+    // --- Reservation Modal Texts ---
+    solicitudReserva: 'Reservation Request',
+    nombreCompleto: 'Full Name',
+    placeholderNombre: 'Your name',
+    email: 'Email',
+    placeholderEmail: 'you@email.com',
+    fechaLlegada: 'Check-in Date',
+    fechaSalida: 'Check-out Date',
+    numHuespedes: 'Number of Guests',
+    mensajeOpcional: 'Message (Optional)',
+    placeholderMensaje: 'Any special requests?',
+    cancelar: 'Cancel',
+    enviarSolicitud: 'Send Request',
+    toastTitle: 'Request Sent.',
+    toastDescription: 'Thank you for your interest. We will contact you shortly to confirm availability.',
   },
 };
+
+// --- AÑADE ESTA LÍNEA AL FINAL ---
+export type TranslationKey = keyof typeof translations.es;

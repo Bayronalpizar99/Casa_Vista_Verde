@@ -1,4 +1,3 @@
-// src/components/Hero.tsx
 import {
   Box,
   VStack,
@@ -18,8 +17,6 @@ export function Hero() {
   const buttonBg = useColorModeValue('light.accent', 'dark.accent');
   const buttonColor = useColorModeValue('light.primary', 'dark.primary');
 
-  // --- CORRECCIÓN AQUÍ ---
-  // Se usa el color #c2c8d6 directamente para el modo oscuro, como solicitaste.
   const heroTextColor = useColorModeValue('white', '#c2c8d6');
 
   return (

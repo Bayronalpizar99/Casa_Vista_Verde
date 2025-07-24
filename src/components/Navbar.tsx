@@ -1,4 +1,3 @@
-// src/components/Navbar.tsx
 import {
   Box,
   Flex,
@@ -111,12 +110,12 @@ export function Navbar() {
           h="200px"
         />
 
-        {/* --- MODIFICACIÓN AQUÍ --- */}
+        {}
         <HStack
           spacing={10}
           display={{ base: 'none', md: 'flex' }}
           alignItems="center"
-          sx={{ transform: 'translateY(-6px)' }} // <-- He añadido esta línea
+          sx={{ transform: 'translateY(-6px)' }} 
         >
           <HStack as="nav" divider={<Separator />} minWidth="900px" justifyContent="space-between">
             {links}
