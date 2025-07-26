@@ -9,41 +9,81 @@ import {
 } from '@chakra-ui/react';
 import { Link as ScrollLink } from 'react-scroll';
 import { useLanguage } from '../context/LanguageContext';
-import videoBg from '../assets/2K_casas.mp4';
+
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+
+// Importa tus archivos
+import home1 from '../assets/home1.MOV';
+import home2 from '../assets/home2.MOV';
+import home3 from '../assets/home3.JPG';
+import home4 from '../assets/home4.JPG';
+import home5 from '../assets/home5.JPG';
+
 
 export function Hero() {
   const { t } = useLanguage();
 
   const buttonBg = useColorModeValue('light.accent', 'dark.accent');
   const buttonColor = useColorModeValue('light.primary', 'dark.primary');
-
   const heroTextColor = useColorModeValue('white', '#c2c8d6');
 
+  const slides = [
+    { type: 'video', src: home1 },
+    { type: 'video', src: home2 },
+    { type: 'image', src: home3 },
+    { type: 'image', src: home4 },
+    { type: 'image', src: home5 },
+   
+  ];
+
   return (
-    <Box
-      id="inicio"
-      h="100vh"
-      w="full"
-      position="relative"
-      overflow="hidden"
-    >
-      <video
-        autoPlay
+    <Box id="inicio" h="100vh" w="full" position="relative" overflow="hidden">
+      {/* Swiper para las slides */}
+      <Swiper
+        modules={[Autoplay, EffectFade]}
+        effect="fade"
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
         loop
-        muted
-        playsInline 
-        src={videoBg} 
         style={{
           position: 'absolute',
           width: '100%',
           height: '100%',
-          top: '50%',
-          left: '50%',
-          objectFit: 'cover',
-          transform: 'translate(-50%, -50%)',
         }}
-      />
+      >
+        {slides.map((slide, index) => (
+          <SwiperSlide key={index}>
+            {slide.type === 'video' ? (
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                src={slide.src}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+            ) : (
+              <img
+                src={slide.src}
+                alt={`slide-${index}`}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+            )}
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
+      {/* Overlay oscuro */}
       <Box
         position="absolute"
         top="0"
@@ -53,7 +93,8 @@ export function Hero() {
         bg="blackAlpha.600"
         zIndex={1}
       />
-      
+
+      {/* Contenido encima */}
       <Flex
         h="100%"
         w="100%"
@@ -70,13 +111,13 @@ export function Hero() {
             {t('heroSubtitle')}
           </Text>
           <ScrollLink to="contacto" smooth={true} duration={500} offset={-80}>
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               bg={buttonBg}
               color={buttonColor}
               px={8}
               _hover={{
-                opacity: 0.9
+                opacity: 0.9,
               }}
             >
               {t('reservarAhora')}

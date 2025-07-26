@@ -1,5 +1,6 @@
-// src/App.tsx
 import { Box } from '@chakra-ui/react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Ubicacion } from './components/Ubicacion';
@@ -8,25 +9,39 @@ import { Experiencias } from './components/Experiencias';
 import { Precios } from './components/Precios';
 import { CallToAction } from './components/CallToAction';
 import { Footer } from './components/Footer';
-import { ScrollToTopButton } from './components/ScrollToTopButton'; 
+import { ScrollToTopButton } from './components/ScrollToTopButton';
+import { PoliticaPrivacidad } from './components/PoliticaPrivacidad';
 
 function App() {
   return (
-    <Box bg="background">
-      <Navbar />
-      <main>
-        {/* --- MODIFICACIÓN AQUÍ --- */}
-        {/* Se reordenaron los componentes para que coincidan con el Navbar. */}
-        <Hero />
-        <Habitaciones />
-        <Experiencias />
-        <Ubicacion />
-        <Precios />
-        <CallToAction />
-      </main>
-      <Footer />
-      <ScrollToTopButton />
-    </Box>
+    <Router>
+      <Box bg="background">
+        <Navbar />
+
+        <Routes>
+          {/* Página principal */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero />
+                <Habitaciones />
+                <Experiencias />
+                <Ubicacion />
+                <Precios />
+                <CallToAction />
+              </>
+            }
+          />
+
+          {/* Página de política de privacidad */}
+          <Route path="/politica-de-privacidad" element={<PoliticaPrivacidad />} />
+        </Routes>
+
+        <Footer />
+        <ScrollToTopButton />
+      </Box>
+    </Router>
   );
 }
 

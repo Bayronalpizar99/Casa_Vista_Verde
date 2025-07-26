@@ -76,7 +76,9 @@ export function Footer() {
                 
                 <Box borderTopWidth={1} borderStyle={'solid'} borderColor={borderColor} mt={8} pt={6}>
                     <Text textAlign="center" fontSize="sm">
-                        {t('derechosReservados')} | <Link href="#" color={headingColor}>{t('politicaPrivacidad')}</Link>
+                        {t('derechosReservados')} | <Link href="/politica-de-privacidad" color={headingColor}>
+                        {t('politicaPrivacidad')}
+                        </Link>
                     </Text>
 
                     <Text textAlign="center" fontSize="sm" mt={2}>

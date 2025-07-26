@@ -11,12 +11,14 @@ import {
   useColorModeValue,
   Text,
 } from '@chakra-ui/react';
-import { Link as ScrollLink } from 'react-scroll';
 import { HamburgerIcon, CloseIcon, SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 import logoLight from '../assets/CASA.png';
 import logoDark from '../assets/CASA2.png';
+
+import { scroller } from 'react-scroll';
+import { useLocation, useNavigate } from 'react-router-dom'; // ✅ nuevo
 
 type NavLinkType = {
   key: keyof typeof translations.es;
@@ -27,6 +29,9 @@ export function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const { lang, toggleLang, t } = useLanguage();
+
+  const location = useLocation(); // ✅ nuevo
+  const navigate = useNavigate(); // ✅ nuevo
 
   const navLinks: NavLinkType[] = [
     { key: 'inicio', href: 'inicio' },
@@ -47,48 +52,62 @@ export function Navbar() {
 
   const Separator = () => <Text>/</Text>;
 
+  // ✅ Nueva función para manejar navegación y scroll
+  const handleScroll = (section: string) => {
+    if (location.pathname !== "/") {
+      navigate("/"); // Ir al home
+      setTimeout(() => {
+        scroller.scrollTo(section, {
+          smooth: true,
+          duration: 500,
+          offset: -100,
+        });
+      }, 200); // Esperamos un poco a que cargue el home
+    } else {
+      scroller.scrollTo(section, {
+        smooth: true,
+        duration: 500,
+        offset: -100,
+      });
+    }
+
+    if (isOpen) onClose();
+  };
+
   const links = navLinks.map((link) => (
-    <ScrollLink
+    <Text
       key={link.key}
-      to={link.href}
-      smooth={true}
-      duration={500}
-      offset={-100}
-      spy={true}
-      onClick={isOpen ? onClose : undefined}
-      style={{ cursor: 'pointer' }}
+      onClick={() => handleScroll(link.href)}
+      px="2"
+      textAlign="center"
+      fontWeight="medium"
+      textTransform="uppercase"
+      position="relative"
+      whiteSpace="nowrap"
+      cursor="pointer"
+      _hover={{
+        textDecoration: 'none',
+        color: secondaryColor,
+        _after: {
+          transform: 'scaleX(1)',
+          transformOrigin: 'bottom left',
+        },
+      }}
+      _after={{
+        content: '""',
+        position: 'absolute',
+        width: '100%',
+        transform: 'scaleX(0)',
+        height: '2px',
+        bottom: '-2px',
+        left: 0,
+        backgroundColor: accentColor,
+        transformOrigin: 'bottom right',
+        transition: 'transform .25s ease-out',
+      }}
     >
-      <Text
-        px="2"
-        textAlign="center"
-        fontWeight="medium"
-        textTransform="uppercase"
-        position="relative"
-        whiteSpace="nowrap"
-        _hover={{
-          textDecoration: 'none',
-          color: secondaryColor,
-          _after: {
-            transform: 'scaleX(1)',
-            transformOrigin: 'bottom left',
-          },
-        }}
-        _after={{
-          content: '""',
-          position: 'absolute',
-          width: '100%',
-          transform: 'scaleX(0)',
-          height: '2px',
-          bottom: '-2px',
-          left: 0,
-          backgroundColor: accentColor,
-          transformOrigin: 'bottom right',
-          transition: 'transform .25s ease-out',
-        }}
-      >
-        {t(link.key)}
-      </Text>
-    </ScrollLink>
+      {t(link.key)}
+    </Text>
   ));
 
   return (
@@ -108,14 +127,20 @@ export function Navbar() {
           src={logoSrc}
           alt="Logo de Casa Vista Verde"
           h="200px"
+          mt="-1px"
+          transition="transform 0.8s ease-in-out"
+          _hover={{
+            transform: 'scale(1.1) rotate(360deg)',
+            cursor: 'pointer',
+          }}
+          onClick={isOpen ? onClose : undefined}
         />
 
-        {}
         <HStack
           spacing={10}
           display={{ base: 'none', md: 'flex' }}
           alignItems="center"
-          sx={{ transform: 'translateY(-6px)' }} 
+          sx={{ transform: 'translateY(-6px)' }}
         >
           <HStack as="nav" divider={<Separator />} minWidth="900px" justifyContent="space-between">
             {links}
