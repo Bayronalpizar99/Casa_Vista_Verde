@@ -2,10 +2,8 @@ import { Box, Heading, Text, VStack, HStack, Icon, Flex, useColorModeValue, Imag
 import { motion } from 'framer-motion';
 import { FaMapMarkerAlt, FaTree, FaCheese, FaChurch } from 'react-icons/fa';
 import { GiSprout, GiWaterfall } from 'react-icons/gi';
-
 import { useLanguage } from '../context/LanguageContext';
 import type { TranslationKey } from '../translations'; 
-
 import parqueZarceroImg from '../assets/parque-zarcero.jpg';
 
 const MotionBox = motion(Box);

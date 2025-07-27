@@ -16,9 +16,8 @@ import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 import logoLight from '../assets/CASA.png';
 import logoDark from '../assets/CASA2.png';
-
 import { scroller } from 'react-scroll';
-import { useLocation, useNavigate } from 'react-router-dom'; // ✅ nuevo
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 type NavLinkType = {
   key: keyof typeof translations.es;
@@ -30,8 +29,8 @@ export function Navbar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { lang, toggleLang, t } = useLanguage();
 
-  const location = useLocation(); // ✅ nuevo
-  const navigate = useNavigate(); // ✅ nuevo
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const navLinks: NavLinkType[] = [
     { key: 'inicio', href: 'inicio' },
@@ -52,17 +51,16 @@ export function Navbar() {
 
   const Separator = () => <Text>/</Text>;
 
-  // ✅ Nueva función para manejar navegación y scroll
   const handleScroll = (section: string) => {
     if (location.pathname !== "/") {
-      navigate("/"); // Ir al home
+      navigate("/");
       setTimeout(() => {
         scroller.scrollTo(section, {
           smooth: true,
           duration: 500,
           offset: -100,
         });
-      }, 200); // Esperamos un poco a que cargue el home
+      }, 200);
     } else {
       scroller.scrollTo(section, {
         smooth: true,
@@ -123,18 +121,20 @@ export function Navbar() {
       zIndex="sticky"
     >
       <Flex h={16} alignItems="center" justifyContent="space-between">
-        <Image
-          src={logoSrc}
-          alt="Logo de Casa Vista Verde"
-          h="200px"
-          mt="-1px"
-          transition="transform 0.8s ease-in-out"
-          _hover={{
-            transform: 'scale(1.1) rotate(360deg)',
-            cursor: 'pointer',
-          }}
-          onClick={isOpen ? onClose : undefined}
-        />
+        {}
+        <Link to="/" onClick={isOpen ? onClose : undefined}>
+          <Image
+            src={logoSrc}
+            alt="Logo de Casa Vista Verde"
+            h="200px"
+            mt="-1px"
+            transition="transform 0.8s ease-in-out"
+            _hover={{
+              transform: 'scale(1.1) rotate(360deg)',
+              cursor: 'pointer',
+            }}
+          />
+        </Link>
 
         <HStack
           spacing={10}

@@ -4,7 +4,7 @@ import {
     NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, useToast,
     HStack
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; // Importa useEffect
 import { useLanguage } from '../context/LanguageContext';
 
 export function ReservationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
@@ -15,19 +15,35 @@ export function ReservationModal({ isOpen, onClose }: { isOpen: boolean, onClose
     const buttonColor = useColorModeValue('light.primary', 'dark.primary');
     const toast = useToast();
 
-    const [formData, setFormData] = useState({
+    const initialState = {
         name: '',
         email: '',
         checkIn: '',
         checkOut: '',
         guests: 2,
         message: ''
-    });
+    };
+
+    const [formData, setFormData] = useState(initialState);
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => {
+        if (!isOpen) {
+            setFormData(initialState);
+        }
+    }, [isOpen]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        if (name === 'checkIn' && formData.checkOut && value > formData.checkOut) {
+            setFormData(prev => ({
+                ...prev,
+                [name]: value,
+                checkOut: '' // Resetea la fecha de salida
+            }));
+        } else {
+            setFormData(prev => ({ ...prev, [name]: value }));
+        }
     };
 
     const handleGuestsChange = (_: string, valueAsNumber: number) => {
@@ -43,9 +59,7 @@ export function ReservationModal({ isOpen, onClose }: { isOpen: boolean, onClose
         try {
             const response = await fetch(backendUrl, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData),
             });
 
@@ -87,25 +101,26 @@ export function ReservationModal({ isOpen, onClose }: { isOpen: boolean, onClose
                         <VStack spacing={4}>
                             <FormControl isRequired>
                                 <FormLabel>{t('nombreCompleto')}</FormLabel>
-                                <Input name="name" placeholder={t('placeholderNombre')} onChange={handleChange} />
+                                <Input name="name" placeholder={t('placeholderNombre')} onChange={handleChange} value={formData.name} />
                             </FormControl>
                             <FormControl isRequired>
                                 <FormLabel>{t('email')}</FormLabel>
-                                <Input name="email" type="email" placeholder={t('placeholderEmail')} onChange={handleChange} />
+                                <Input name="email" type="email" placeholder={t('placeholderEmail')} onChange={handleChange} value={formData.email}/>
                             </FormControl>
-                            <HStack w="100%">
+                            <HStack w="100%" align="flex-end">
                                 <FormControl isRequired>
                                     <FormLabel>{t('fechaLlegada')}</FormLabel>
-                                    <Input name="checkIn" type="date" onChange={handleChange} min={new Date().toISOString().split("T")[0]} />
+                                    <Input name="checkIn" type="date" onChange={handleChange} min={new Date().toISOString().split("T")[0]} value={formData.checkIn}/>
                                 </FormControl>
-                                <FormControl isRequired>
+                                {}
+                                <FormControl isRequired isDisabled={!formData.checkIn}>
                                     <FormLabel>{t('fechaSalida')}</FormLabel>
-                                    <Input name="checkOut" type="date" onChange={handleChange} min={formData.checkIn || new Date().toISOString().split("T")[0]} />
+                                    <Input name="checkOut" type="date" onChange={handleChange} min={formData.checkIn} value={formData.checkOut}/>
                                 </FormControl>
                             </HStack>
                             <FormControl isRequired>
                                 <FormLabel>{t('numHuespedes')}</FormLabel>
-                                <NumberInput name="guests" min={1} max={6} defaultValue={2} onChange={handleGuestsChange}>
+                                <NumberInput name="guests" min={1} max={6} value={formData.guests} onChange={handleGuestsChange}>
                                     <NumberInputField />
                                     <NumberInputStepper>
                                         <NumberIncrementStepper />
@@ -115,7 +130,7 @@ export function ReservationModal({ isOpen, onClose }: { isOpen: boolean, onClose
                             </FormControl>
                             <FormControl>
                                 <FormLabel>{t('mensajeOpcional')}</FormLabel>
-                                <Textarea name="message" placeholder={t('placeholderMensaje')} onChange={handleChange} />
+                                <Textarea name="message" placeholder={t('placeholderMensaje')} onChange={handleChange} value={formData.message}/>
                             </FormControl>
                         </VStack>
                     </ModalBody>

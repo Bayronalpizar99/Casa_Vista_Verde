@@ -1,8 +1,9 @@
-import { Box, Container, Flex, HStack, IconButton, Image, Link, Stack, Text, useColorModeValue, VStack } from '@chakra-ui/react';
+import { Box, Container, Flex, HStack, IconButton, Image, Link as ChakraLink, Stack, Text, useColorModeValue, VStack } from '@chakra-ui/react';
 import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
 import logoLight from '../assets/CASA.png';
 import logoDark from '../assets/CASA2.png';
+import { Link as RouterLink } from 'react-router-dom'; 
 
 export function Footer() {
     const { t } = useLanguage(); // Hook para traducciones
@@ -76,14 +77,15 @@ export function Footer() {
                 
                 <Box borderTopWidth={1} borderStyle={'solid'} borderColor={borderColor} mt={8} pt={6}>
                     <Text textAlign="center" fontSize="sm">
-                        {t('derechosReservados')} | <Link href="/politica-de-privacidad" color={headingColor}>
-                        {t('politicaPrivacidad')}
-                        </Link>
+                        {t('derechosReservados')} | {}
+                        <ChakraLink as={RouterLink} to="/politica-de-privacidad" color={headingColor} _hover={{ textDecoration: 'underline' }}>
+                            {t('politicaPrivacidad')}
+                        </ChakraLink>
                     </Text>
 
                     <Text textAlign="center" fontSize="sm" mt={2}>
                         {t('desarrolladoPor')}{' '}
-                        <Link 
+                        <ChakraLink 
                             href="https://github.com/Bayronalpizar99" 
                             isExternal
                             fontWeight="bold"
@@ -91,7 +93,7 @@ export function Footer() {
                             _hover={{ textDecoration: 'underline' }}
                         >
                             @Bayronalpizar99
-                        </Link>
+                        </ChakraLink>
                     </Text>
                 </Box>
 

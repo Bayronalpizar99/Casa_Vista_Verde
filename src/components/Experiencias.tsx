@@ -11,8 +11,11 @@ import { useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import balconImg from '../assets/balcon.jpg';
 import cocinaImg from '../assets/cocina.jpg';
-import barImg from '../assets/bar.jpg';
+import barImg from '../assets/bar.jpeg';
 import hogueraImg from '../assets/hoguera.jpg';
+import fincaImg from '../assets/finca.jpg';
+import juegosImg from '../assets/juegos.jpg';
+
 
 const MotionBox = motion(Box);
 
@@ -127,13 +130,13 @@ export function Experiencias() {
             descriptionKey: "barDesc"
         },
         {
-            image: 'https://images.unsplash.com/photo-1598122002334-857e35824c80?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            image: fincaImg, 
             icon: GiBroccoli,
             titleKey: "fincaTitle",
             descriptionKey: "fincaDesc"
         },
         {
-            image: 'https://images.unsplash.com/photo-1601925348821-651213349e5d?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            image: juegosImg, 
             icon: FaChess,
             titleKey: "juegosTitle",
             descriptionKey: "juegosDesc"

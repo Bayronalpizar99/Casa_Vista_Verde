@@ -108,6 +108,20 @@ export const translations = {
     enviarSolicitud: 'Enviar Solicitud',
     toastTitle: 'Solicitud Enviada.',
     toastDescription: 'Gracias por tu interés. Nos pondremos en contacto contigo pronto para confirmar la disponibilidad.',
+    
+    // --- Textos de Política de Privacidad ---
+    privacyTitle: 'Política de Privacidad',
+    privacyIntro: 'En <strong>Casa Vista Verde</strong> nos comprometemos a proteger la privacidad de nuestros clientes. Los datos personales que recopilamos a través del formulario de reservación son tratados con estricta confidencialidad y conforme a la Ley de Protección de la Persona frente al Tratamiento de sus Datos Personales (Ley N.° 8968, Costa Rica).',
+    privacyDataTitle: '1. Datos que recopilamos',
+    privacyDataText: '- Nombre completo<br />- Correo electrónico<br />- Fechas de la estadía',
+    privacyUsageTitle: '2. Uso de la información',
+    privacyUsageText: 'Utilizamos estos datos únicamente para:<br />- Gestionar y confirmar la reservación.<br />- Comunicarnos con usted para coordinar detalles de su estadía.<br />No utilizamos esta información para fines publicitarios sin su consentimiento expreso.',
+    privacySecurityTitle: '3. Conservación y seguridad',
+    privacySecurityText: 'Sus datos se almacenan de forma segura y solo se conservarán durante el tiempo necesario para gestionar la reservación. Una vez concluida su estadía, eliminaremos sus datos, salvo que la ley exija conservarlos por más tiempo.',
+    privacyRightsTitle: '4. Derechos del titular de los datos',
+    privacyRightsText: 'Usted puede solicitar el acceso, corrección o eliminación de sus datos personales en cualquier momento escribiéndonos a <strong>casavistaverde2025@gmail.com</strong>.',
+    privacyContactTitle: '5. Contacto',
+    privacyContactText: 'Para cualquier consulta relacionada con esta Política de Privacidad, puede escribirnos a <strong>casavistaverde2025@gmail.com</strong> o llamarnos al <strong>(+506) 8315-4952</strong>.',
   },
   en: {
     // --- Navbar Texts ---
@@ -218,8 +232,21 @@ export const translations = {
     enviarSolicitud: 'Send Request',
     toastTitle: 'Request Sent.',
     toastDescription: 'Thank you for your interest. We will contact you shortly to confirm availability.',
+
+    // --- Privacy Policy Texts ---
+    privacyTitle: 'Privacy Policy',
+    privacyIntro: 'At <strong>Casa Vista Verde</strong>, we are committed to protecting the privacy of our clients. The personal data we collect through the reservation form is treated with strict confidentiality and in accordance with the Law on the Protection of Persons against the Processing of their Personal Data (Law No. 8968, Costa Rica).',
+    privacyDataTitle: '1. Data We Collect',
+    privacyDataText: '- Full name<br />- Email address<br />- Dates of stay',
+    privacyUsageTitle: '2. Use of Information',
+    privacyUsageText: 'We use this data solely to:<br />- Manage and confirm the reservation.<br />- Communicate with you to coordinate details of your stay.<br />We do not use this information for advertising purposes without your express consent.',
+    privacySecurityTitle: '3. Data Retention and Security',
+    privacySecurityText: 'Your data is stored securely and will only be kept for the time necessary to manage the reservation. Once your stay is over, we will delete your data, unless the law requires us to keep it longer.',
+    privacyRightsTitle: '4. Rights of the Data Subject',
+    privacyRightsText: 'You can request access, correction, or deletion of your personal data at any time by writing to us at <strong>casavistaverde2025@gmail.com</strong>.',
+    privacyContactTitle: '5. Contact',
+    privacyContactText: 'For any questions related to this Privacy Policy, you can write to us at <strong>casavistaverde2025@gmail.com</strong> or call us at <strong>(+506) 8315-4952</strong>.',
   },
 };
 
-// --- AÑADE ESTA LÍNEA AL FINAL ---
 export type TranslationKey = keyof typeof translations.es;

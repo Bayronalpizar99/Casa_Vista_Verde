@@ -4,12 +4,17 @@ import App from './App.tsx';
 import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from './theme.ts';
 import { LanguageProvider } from './context/LanguageContext.tsx';
+import { BrowserRouter } from 'react-router-dom'; 
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
-      <LanguageProvider> {}
-        <App />
+      {/* 1. LanguageProvider envuelve todo */}
+      <LanguageProvider>
+        {/* 2. BrowserRouter envuelve la App */}
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </LanguageProvider>
     </ChakraProvider>
   </React.StrictMode>

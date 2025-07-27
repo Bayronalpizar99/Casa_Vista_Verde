@@ -6,12 +6,12 @@ import {
 import { motion } from 'framer-motion';
 import { FaBed, FaWifi, FaMountain, FaCoffee, FaCheckCircle, FaTree } from 'react-icons/fa';
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react'; 
 import { useLanguage } from '../context/LanguageContext';
-import habitacion1Vista1 from '../assets/Habitación 1- Vista 1.jpg';
+import habitacion1Vista1 from '../assets/Habitación 1- Vista 1.jpeg';
 import habitacion1Vista2 from '../assets/Habitación 1- Vista 2.jpg';
-import habitacion2Vista1 from '../assets/Habitación 2- Vista 1.jpg';
-import habitacion3Vista1 from '../assets/Habitación 3- Vista 1.jpg';
+import habitacion2Vista1 from '../assets/Habitación 2- Vista 1.jpeg';
+import habitacion3Vista1 from '../assets/Habitación 3- Vista 1.jpeg';
 
 
 const MotionBox = motion(Box);
@@ -76,9 +76,14 @@ const RoomDetailModal = ({ isOpen, onClose, room }: { isOpen: boolean, onClose: 
     const headerColor = useColorModeValue('light.primary', 'white');
     const modalBorderColor = useColorModeValue('#0b6f3c', '#90f4c0');
 
-    if (!isOpen && currentImageIndex !== 0) {
-        setCurrentImageIndex(0);
-    }
+    
+    useEffect(() => {
+        if (!isOpen) {
+            setTimeout(() => {
+                setCurrentImageIndex(0);
+            }, 200);
+        }
+    }, [isOpen]);
 
     if (!room) return null;
 
@@ -158,6 +163,10 @@ export function Habitaciones() {
         onOpen();
     };
 
+    const handleCloseModal = () => {
+        onClose();
+    };
+
     const bgColor = useColorModeValue('light.background', 'dark.background');
     const headingColor = useColorModeValue('light.primary', 'dark.primary');
     const textColor = useColorModeValue('light.text', 'dark.text');
@@ -177,7 +186,7 @@ export function Habitaciones() {
                     ))}
                 </SimpleGrid>
             </VStack>
-            <RoomDetailModal isOpen={isOpen} onClose={onClose} room={selectedRoom} />
+            <RoomDetailModal isOpen={isOpen} onClose={handleCloseModal} room={selectedRoom} />
         </Box>
     );
 }
