@@ -25,7 +25,7 @@ interface PriceCardProps {
 }
 
 const PriceCard = ({ title, price, description, icon, isPopular, delay }: PriceCardProps) => {
-    const {} = useLanguage();
+    const { t } = useLanguage();
     
     // Colores corregidos usando el tema definido
     const cardBg = useColorModeValue('white', 'dark.background'); // Tema dark usa el background principal
@@ -286,28 +286,28 @@ const PriceCalculator = () => {
                     </HStack>
 
                     <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} w="100%"> {/* Aumenté el spacing de 4 a 6 */}
-                        <VStack align="start" spacing={2}>
-                            <Text fontWeight="bold" color={headingColor} fontSize="sm">
-                                Check-in/Check-out
+                        <VStack align="center" spacing={2}> {/* Cambiado de "start" a "center" */}
+                            <Text fontWeight="bold" color={headingColor} fontSize="sm" textAlign="center">
+                                Capacidad
                             </Text>
-                            <Text fontSize="sm" color={textColor}> {/* Cambié de xs a sm */}
-                                {t('tenerEnCuenta1')}
+                            <Text fontSize="sm" color={textColor} textAlign="center"> {/* Agregado textAlign="center" */}
+                                La tarifa base es para 2 personas. Se pueden alojar hasta 6 personas en total.
                             </Text>
                         </VStack>
-                        <VStack align="start" spacing={2}>
-                            <Text fontWeight="bold" color={headingColor} fontSize="sm">
+                        <VStack align="center" spacing={2}> {/* Cambiado de "start" a "center" */}
+                            <Text fontWeight="bold" color={headingColor} fontSize="sm" textAlign="center">
                                 Política de Cancelación
                             </Text>
-                            <Text fontSize="sm" color={textColor}> {/* Cambié de xs a sm */}
+                            <Text fontSize="sm" color={textColor} textAlign="center"> {/* Agregado textAlign="center" */}
                                 {t('tenerEnCuenta2')}
                             </Text>
                         </VStack>
-                        <VStack align="start" spacing={2}>
-                            <Text fontWeight="bold" color={headingColor} fontSize="sm">
-                                Servicios Incluidos
+                        <VStack align="center" spacing={2}> {/* Cambiado de "start" a "center" */}
+                            <Text fontWeight="bold" color={headingColor} fontSize="sm" textAlign="center">
+                                Check-in/Check-out
                             </Text>
-                            <Text fontSize="sm" color={textColor}> {/* Cambié de xs a sm */}
-                                {t('tenerEnCuenta3')}
+                            <Text fontSize="sm" color={textColor} textAlign="center"> {/* Agregado textAlign="center" */}
+                                El check-in es a partir de las 3:00 PM y el check-out es hasta las 11:00 AM.
                             </Text>
                         </VStack>
                     </SimpleGrid>
