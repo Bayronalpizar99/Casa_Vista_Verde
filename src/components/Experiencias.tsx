@@ -10,11 +10,11 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import balconImg from '../assets/balcon.jpg';
-import cocinaImg from '../assets/cocina.jpg';
-import barImg from '../assets/bar.jpeg';
-import hogueraImg from '../assets/hoguera.jpg';
-import fincaImg from '../assets/finca.jpg';
-import juegosImg from '../assets/juegos.jpg';
+import cocinaImg from '../assets/cocina.webp';
+import barImg from '../assets/bar.webp';
+import hogueraImg from '../assets/hoguera.webp';
+import fincaImg from '../assets/finca.webp';
+import juegosImg from '../assets/juegos.webp';
 
 
 const MotionBox = motion(Box);

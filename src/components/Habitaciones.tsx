@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import habitacion1Vista1 from '../assets/Habitación 1- Vista 1.jpeg';
 import habitacion1Vista2 from '../assets/Habitación 1- Vista 2.jpg';
-import habitacion2Vista1 from '../assets/Habitación 2- Vista 1.jpeg';
+import habitacion2Vista1 from '../assets/Habitación 2- Vista 1.webp';
 import habitacion3Vista1 from '../assets/Habitación 3- Vista 1.jpeg';
 
 

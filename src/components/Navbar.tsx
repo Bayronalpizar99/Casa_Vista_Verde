@@ -121,16 +121,16 @@ export function Navbar() {
       zIndex="sticky"
     >
       <Flex h={16} alignItems="center" justifyContent="space-between">
-        {}
+        {/* Logo with simple zoom hover effect */}
         <Link to="/" onClick={isOpen ? onClose : undefined}>
           <Image
             src={logoSrc}
             alt="Logo de Casa Vista Verde"
             h="200px"
             mt="-1px"
-            transition="transform 0.8s ease-in-out"
+            transition="transform 0.3s ease-in-out"
             _hover={{
-              transform: 'scale(1.1) rotate(360deg)',
+              transform: 'scale(1.05)',
               cursor: 'pointer',
             }}
           />

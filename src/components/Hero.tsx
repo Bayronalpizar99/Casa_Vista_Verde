@@ -16,11 +16,10 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 
 // Importa tus archivos
-import home1 from '../assets/home1.mov';
-import home2 from '../assets/home2.mov';
-import home3 from '../assets/home3.jpg';
-import home4 from '../assets/home4.jpg';
-import home5 from '../assets/home5.jpg';
+import home1 from '../assets/home1.mp4';
+import home2 from '../assets/home2.mp4';
+import home3 from '../assets/home3.webp';
+import home5 from '../assets/home5.webp';
 
 
 export function Hero() {
@@ -34,7 +33,6 @@ export function Hero() {
     { type: 'video', src: home1 },
     { type: 'video', src: home2 },
     { type: 'image', src: home3 },
-    { type: 'image', src: home4 },
     { type: 'image', src: home5 },
    
   ];

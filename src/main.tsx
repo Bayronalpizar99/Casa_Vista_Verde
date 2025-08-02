@@ -5,6 +5,9 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from './theme.ts';
 import { LanguageProvider } from './context/LanguageContext.tsx';
 import { BrowserRouter } from 'react-router-dom'; 
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/navigation';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

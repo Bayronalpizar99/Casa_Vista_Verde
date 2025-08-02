@@ -33,7 +33,6 @@ export function ScrollToTopButton() {
   }, []);
 
   return (
-   
     <SlideFade in={isVisible} offsetY="20px">
       <IconButton
         aria-label="Volver arriba"
