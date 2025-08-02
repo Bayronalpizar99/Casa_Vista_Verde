@@ -5,7 +5,7 @@ import { ReservationModal } from './ReservationModal';
 import { useLanguage } from '../context/LanguageContext';
 
 export function CallToAction() {
-    const { t } = useLanguage(); // Hook para traducciones
+    const { t } = useLanguage();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const bgColor = useColorModeValue('light.accent', 'dark.accent');
     const textColor = useColorModeValue('light.primary', 'dark.primary');
@@ -13,13 +13,34 @@ export function CallToAction() {
 
     return (
         <>
-            <Box id="contacto" bg={bgColor} color={textColor} py={20}>
-                <VStack spacing={8} textAlign="center">
-                    <Heading as="h2" size="2xl" px={4}>
+            <Box id="contacto" bg={bgColor} color={textColor} py={{ base: 12, md: 20 }}>
+                <VStack spacing={{ base: 6, md: 8 }} textAlign="center" px={{ base: 4, md: 0 }}>
+                    <Heading 
+                        as="h2" 
+                        size={{ base: "xl", md: "2xl" }} 
+                        px={4}
+                        lineHeight={{ base: "shorter", md: "base" }}
+                    >
                         {t('ctaTitle')}
                     </Heading>
-                    <HStack spacing={6}>
-                        <Button size="lg" variant="solid" colorScheme="gray" onClick={onOpen}>
+                    
+                    {/* Stack vertical en móvil, horizontal en desktop */}
+                    <VStack 
+                        spacing={{ base: 4, md: 0 }}
+                        direction={{ base: "column", md: "row" }}
+                        as={HStack}
+                        flexDirection={{ base: "column", md: "row" }}
+                        alignItems="center"
+                        w={{ base: "100%", md: "auto" }}
+                    >
+                        <Button 
+                            size={{ base: "md", md: "lg" }} 
+                            variant="solid" 
+                            colorScheme="gray" 
+                            onClick={onOpen}
+                            w={{ base: "280px", md: "auto" }}
+                            maxW={{ base: "90%", md: "none" }}
+                        >
                             {t('reservarEstadia')}
                         </Button>
 
@@ -47,22 +68,24 @@ export function CallToAction() {
                                 as="a"
                                 href="https://wa.me/50683154952"
                                 target="_blank"
-                                size="lg"
+                                size={{ base: "md", md: "lg" }}
                                 variant="outline"
                                 leftIcon={<FaWhatsapp />}
                                 _hover={{
                                     bg: 'whiteAlpha.300',
                                 }}
                                 zIndex={1}
+                                w={{ base: "280px", md: "auto" }}
+                                maxW={{ base: "90%", md: "none" }}
+                                fontSize={{ base: "sm", md: "md" }}
                             >
                                 {t('contactarWhatsApp')}
                             </Button>
                         </Flex>
-                    </HStack>
+                    </VStack>
                 </VStack>
             </Box>
             
-            {}
             <ReservationModal isOpen={isOpen} onClose={onClose} />
         </>
     );
