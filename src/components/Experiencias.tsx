@@ -7,7 +7,7 @@ import { FaWineGlassAlt, FaFire, FaEye, FaChess } from 'react-icons/fa';
 import { MdBalcony, MdOutlineKitchen } from 'react-icons/md';
 import { GiBroccoli } from "react-icons/gi";
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import balconImg from '../assets/balcon.jpg';
 import cocinaImg from '../assets/cocina.webp';
@@ -18,7 +18,7 @@ import juegosImg from '../assets/juegos.webp';
 
 const MotionBox = motion(Box);
 
-const ExperienceCard = ({ experience, index, onViewImage, containerRef }: { experience: any, index: number, onViewImage: (image: string) => void, containerRef: React.RefObject<HTMLDivElement> }) => {
+const ExperienceCard = ({ experience, index, onViewImage }: { experience: any, index: number, onViewImage: (image: string) => void }) => {
     const { t } = useLanguage();
     const cardTextColor = useColorModeValue('white', 'dark.primary');
     const glowColor = useColorModeValue('#0b6f3c', '#90f4c0');
@@ -27,23 +27,25 @@ const ExperienceCard = ({ experience, index, onViewImage, containerRef }: { expe
 
     return (
         <MotionBox
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ root: containerRef, once: false, amount: 0.5 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
             position="relative"
             borderRadius="lg"
             overflow="hidden"
             shadow="lg"
-            h={{ base: "300px", md: "400px" }}
+            h={{ base: "350px", md: "400px" }}
             w="100%"
             borderWidth="2px"
             borderColor="transparent"
-            bg="gray.100"
+            bg="gray.200"
             _hover={{
                 borderColor: glowColor,
-                boxShadow: `0 0 10px ${glowColor}`,
+                boxShadow: `0 0 15px ${glowColor}`,
+                transform: 'scale(1.02)'
             }}
+            transitionDuration="0.3s"
+            transitionTimingFunction="ease"
         >
             <Image 
                 src={experience.image} 
@@ -52,12 +54,15 @@ const ExperienceCard = ({ experience, index, onViewImage, containerRef }: { expe
                 h="100%" 
                 objectFit="cover"
                 objectPosition="center"
-                loading="eager"
+                loading="lazy"
+                fallback={
+                    <Flex align="center" justify="center" h="100%" bg="gray.200">
+                        <Text>Cargando imagen...</Text>
+                    </Flex>
+                }
                 onError={(e) => {
-                    console.error(`Error loading image: ${experience.image}`, e);
-                }}
-                onLoad={() => {
-                    console.log(`Image loaded successfully: ${experience.image}`);
+                    console.error(`Error cargando imagen: ${experience.image}`);
+                    e.currentTarget.style.display = 'none';
                 }}
             />
             
@@ -71,7 +76,10 @@ const ExperienceCard = ({ experience, index, onViewImage, containerRef }: { expe
                 size={{ base: "sm", md: "md" }}
                 bg={eyeButtonBg}
                 color={eyeButtonColor}
-                _hover={{ bg: eyeButtonBg, transform: 'scale(1.1)' }}
+                _hover={{ 
+                    bg: eyeButtonBg, 
+                    transform: 'scale(1.1)' 
+                }}
                 onClick={() => onViewImage(experience.image)}
                 zIndex={2}
             />
@@ -82,15 +90,19 @@ const ExperienceCard = ({ experience, index, onViewImage, containerRef }: { expe
                 left="0"
                 right="0"
                 bottom="0"
-                bgGradient="linear(to-t, blackAlpha.800, transparent)"
+                bgGradient="linear(to-t, blackAlpha.900, blackAlpha.300, transparent)"
                 display="flex"
                 alignItems="flex-end"
                 p={{ base: 4, md: 6 }}
             >
                 <VStack align="start" spacing={{ base: 2, md: 3 }} color={cardTextColor}>
                     <Icon as={experience.icon} w={{ base: 8, md: 10 }} h={{ base: 8, md: 10 }} />
-                    <Heading as="h3" size={{ base: "md", md: "lg" }}>{t(experience.titleKey)}</Heading>
-                    <Text fontSize={{ base: "sm", md: "md" }}>{t(experience.descriptionKey)}</Text>
+                    <Heading as="h3" size={{ base: "md", md: "lg" }} lineHeight="shorter">
+                        {t(experience.titleKey)}
+                    </Heading>
+                    <Text fontSize={{ base: "sm", md: "md" }} lineHeight="short">
+                        {t(experience.descriptionKey)}
+                    </Text>
                 </VStack>
             </Box>
         </MotionBox>
@@ -104,12 +116,14 @@ const ImageModal = ({ isOpen, onClose, imageUrl }: { isOpen: boolean, onClose: (
     return (
         <Modal isOpen={isOpen} onClose={onClose} size={{ base: "full", md: "4xl" }} isCentered>
             <ModalOverlay bg="blackAlpha.800" />
-            <ModalContent bg="transparent" shadow="none" m={{ base: 4, md: 0 }}>
+            <ModalContent bg="transparent" shadow="none" m={{ base: 2, md: 0 }}>
                 <ModalCloseButton 
                     color="white" 
-                    bg="blackAlpha.500" 
-                    _hover={{ bg: 'blackAlpha.700' }}
-                    size={{ base: "lg", md: "md" }}
+                    bg="blackAlpha.600" 
+                    _hover={{ bg: 'blackAlpha.800' }}
+                    size="lg"
+                    top={4}
+                    right={4}
                 />
                 <ModalBody p={0}>
                     <Image 
@@ -119,7 +133,7 @@ const ImageModal = ({ isOpen, onClose, imageUrl }: { isOpen: boolean, onClose: (
                         w="100%" 
                         h="auto" 
                         objectFit="contain"
-                        maxH={{ base: "90vh", md: "80vh" }}
+                        maxH="90vh"
                     />
                 </ModalBody>
             </ModalContent>
@@ -172,25 +186,25 @@ export function Experiencias() {
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const isMobile = useBreakpointValue({ base: true, md: false });
     const cardsToShow = useBreakpointValue({ base: 1, sm: 2, lg: 3, xl: 4 }) || 1;
     const totalCards = experienceData.length;
-    
-    // Arreglo del cálculo del maxIndex
-    const maxIndex = Math.max(0, totalCards - cardsToShow);
-    
-    const carouselRef = useRef<HTMLDivElement>(null);
-
-    // Reset del índice cuando cambia el breakpoint
-    useEffect(() => {
-        setCurrentIndex(0);
-    }, [cardsToShow]);
 
     const handlePrev = () => {
-        setCurrentIndex((prev) => Math.max(0, prev - 1));
+        if (isMobile) {
+            setCurrentIndex((prev) => (prev === 0 ? totalCards - 1 : prev - 1));
+        } else {
+            setCurrentIndex((prev) => Math.max(0, prev - 1));
+        }
     };
 
     const handleNext = () => {
-        setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+        if (isMobile) {
+            setCurrentIndex((prev) => (prev === totalCards - 1 ? 0 : prev + 1));
+        } else {
+            const maxIndex = Math.max(0, totalCards - cardsToShow);
+            setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
+        }
     };
 
     const handleViewImage = (imageUrl: string) => {
@@ -201,22 +215,11 @@ export function Experiencias() {
     const bgColor = useColorModeValue('light.background', 'dark.background');
     const headingColor = useColorModeValue('light.primary', 'dark.primary');
     const textColor = useColorModeValue('light.text', 'dark.text');
-    const buttonBg = useColorModeValue('white', 'gray.800');
+    const buttonBg = useColorModeValue('white', 'gray.700');
     const buttonColor = useColorModeValue('gray.600', 'gray.200');
 
-    // Cálculo del porcentaje de desplazamiento - Fix para múltiples imágenes
-    const translatePercentage = (currentIndex * 100);
-
-    console.log('Carousel Debug:', {
-        currentIndex,
-        cardsToShow,
-        maxIndex,
-        translatePercentage,
-        totalCards
-    });
-
     return (
-        <Box id="experiencias" py={{ base: 12, md: 24 }} px={{ base: 4, md: 10 }} bg={bgColor}>
+        <Box id="experiencias" py={{ base: 12, md: 24 }} px={{ base: 4, md: 8 }} bg={bgColor}>
             <VStack spacing={{ base: 8, md: 12 }} maxW="container.xl" mx="auto">
                 <Heading as="h2" size={{ base: "xl", md: "2xl" }} color={headingColor} textAlign="center">
                     {t('experiencias')}
@@ -226,109 +229,139 @@ export function Experiencias() {
                     color={textColor} 
                     textAlign="center" 
                     maxW="3xl"
-                    px={{ base: 4, md: 0 }}
+                    px={{ base: 2, md: 0 }}
                 >
                     {t('experienciasSubtitle')}
                 </Text>
                 
-                <Box position="relative" w="100%" maxW="full">
-                    {/* Botón Anterior */}
-                    <IconButton
-                        aria-label={t('anterior')}
-                        icon={<ChevronLeftIcon w={{ base: 6, md: 8 }} h={{ base: 6, md: 8 }} />}
-                        onClick={handlePrev}
-                        isDisabled={currentIndex === 0}
-                        isRound
-                        position="absolute"
-                        left={{ base: '-10px', sm: '-20px', md: '-50px' }}
-                        top="50%"
-                        transform="translateY(-50%)"
-                        zIndex={3}
-                        bg={buttonBg}
-                        color={buttonColor}
-                        boxShadow="md"
-                        size={{ base: "sm", md: "md" }}
-                        _hover={{
-                            bg: buttonBg,
-                            transform: 'translateY(-50%) scale(1.05)',
-                        }}
-                        _disabled={{
-                            opacity: 0.5,
-                            cursor: 'not-allowed',
-                        }}
-                    />
+                {/* Carrusel Mobile */}
+                {isMobile ? (
+                    <Box position="relative" w="100%" maxW="400px">
+                        <Box overflow="hidden" borderRadius="lg">
+                            <Flex
+                                transitionDuration="0.4s"
+                                transitionTimingFunction="ease-in-out"
+                                transform={`translateX(-${currentIndex * 100}%)`}
+                                w={`${totalCards * 100}%`}
+                            >
+                                {experienceData.map((exp, index) => (
+                                    <Box key={index} w={`${100 / totalCards}%`} px={2}>
+                                        <ExperienceCard 
+                                            experience={exp} 
+                                            index={index} 
+                                            onViewImage={handleViewImage} 
+                                        />
+                                    </Box>
+                                ))}
+                            </Flex>
+                        </Box>
 
-                    {/* Contenedor del carrusel */}
-                    <Box overflow="hidden" ref={carouselRef} w="100%">
-                        <Flex
-                            transition="transform 0.5s ease-in-out"
-                            transform={`translateX(-${translatePercentage}%)`}
-                            w={`${totalCards * 100}%`}
-                        >
-                            {experienceData.map((exp, index) => (
-                                <Box 
-                                    key={index} 
-                                    flex={`0 0 ${100 / totalCards}%`}
-                                    p={{ base: 2, sm: 3, lg: 4 }}
-                                    w={`${100 / totalCards}%`}
-                                >
-                                    <ExperienceCard 
-                                        experience={exp} 
-                                        index={index} 
-                                        onViewImage={handleViewImage} 
-                                        containerRef={carouselRef} 
-                                    />
-                                </Box>
+                        {/* Botones Mobile */}
+                        <IconButton
+                            aria-label={t('anterior')}
+                            icon={<ChevronLeftIcon w={6} h={6} />}
+                            onClick={handlePrev}
+                            position="absolute"
+                            left="-20px"
+                            top="50%"
+                            transform="translateY(-50%)"
+                            isRound
+                            bg={buttonBg}
+                            color={buttonColor}
+                            boxShadow="lg"
+                            size="md"
+                            _hover={{ bg: buttonBg, transform: 'translateY(-50%) scale(1.1)' }}
+                        />
+                        
+                        <IconButton
+                            aria-label={t('siguiente')}
+                            icon={<ChevronRightIcon w={6} h={6} />}
+                            onClick={handleNext}
+                            position="absolute"
+                            right="-20px"
+                            top="50%"
+                            transform="translateY(-50%)"
+                            isRound
+                            bg={buttonBg}
+                            color={buttonColor}
+                            boxShadow="lg"
+                            size="md"
+                            _hover={{ bg: buttonBg, transform: 'translateY(-50%) scale(1.1)' }}
+                        />
+
+                        {/* Indicadores Mobile */}
+                        <Flex justify="center" gap={2} mt={6}>
+                            {experienceData.map((_, index) => (
+                                <Box
+                                    key={index}
+                                    w={currentIndex === index ? 6 : 3}
+                                    h={3}
+                                    borderRadius="full"
+                                    bg={currentIndex === index ? headingColor : 'gray.300'}
+                                    cursor="pointer"
+                                    transitionDuration="0.3s"
+                                    onClick={() => setCurrentIndex(index)}
+                                    _hover={{
+                                        bg: currentIndex === index ? headingColor : 'gray.400',
+                                    }}
+                                />
                             ))}
                         </Flex>
                     </Box>
-
-                    {/* Botón Siguiente */}
-                    <IconButton
-                        aria-label={t('siguiente')}
-                        icon={<ChevronRightIcon w={{ base: 6, md: 8 }} h={{ base: 6, md: 8 }} />}
-                        onClick={handleNext}
-                        isDisabled={currentIndex >= maxIndex}
-                        isRound
-                        position="absolute"
-                        right={{ base: '-10px', sm: '-20px', md: '-50px' }}
-                        top="50%"
-                        transform="translateY(-50%)"
-                        zIndex={3}
-                        bg={buttonBg}
-                        color={buttonColor}
-                        boxShadow="md"
-                        size={{ base: "sm", md: "md" }}
-                        _hover={{
-                            bg: buttonBg,
-                            transform: 'translateY(-50%) scale(1.05)',
-                        }}
-                        _disabled={{
-                            opacity: 0.5,
-                            cursor: 'not-allowed',
-                        }}
-                    />
-                </Box>
-
-                {/* Indicadores de posición mejorados */}
-                <Flex justify="center" gap={2} mt={4}>
-                    {Array.from({ length: totalCards }).map((_, index) => (
-                        <Box
-                            key={index}
-                            w={3}
-                            h={3}
-                            borderRadius="full"
-                            bg={currentIndex === index ? headingColor : 'gray.300'}
-                            cursor="pointer"
-                            transition="all 0.2s ease"
-                            onClick={() => setCurrentIndex(index)}
-                            _hover={{
-                                bg: currentIndex === index ? headingColor : 'gray.400',
-                                transform: 'scale(1.1)'
-                            }}
+                ) : (
+                    /* Carrusel Desktop */
+                    <Box position="relative" w="100%">
+                        <IconButton
+                            aria-label={t('anterior')}
+                            icon={<ChevronLeftIcon w={8} h={8} />}
+                            onClick={handlePrev}
+                            isDisabled={currentIndex === 0}
+                            position="absolute"
+                            left="-60px"
+                            top="50%"
+                            transform="translateY(-50%)"
+                            isRound
+                            bg={buttonBg}
+                            color={buttonColor}
+                            boxShadow="md"
+                            zIndex={2}
                         />
-                    ))}
-                </Flex>
+
+                        <Box overflow="hidden">
+                            <Flex
+                                transitionDuration="0.5s"
+                                transitionTimingFunction="ease-in-out"
+                                transform={`translateX(-${currentIndex * (100 / cardsToShow)}%)`}
+                            >
+                                {experienceData.map((exp, index) => (
+                                    <Box key={index} flex={`0 0 ${100 / cardsToShow}%`} px={4}>
+                                        <ExperienceCard 
+                                            experience={exp} 
+                                            index={index} 
+                                            onViewImage={handleViewImage} 
+                                        />
+                                    </Box>
+                                ))}
+                            </Flex>
+                        </Box>
+
+                        <IconButton
+                            aria-label={t('siguiente')}
+                            icon={<ChevronRightIcon w={8} h={8} />}
+                            onClick={handleNext}
+                            isDisabled={currentIndex >= totalCards - cardsToShow}
+                            position="absolute"
+                            right="-60px"
+                            top="50%"
+                            transform="translateY(-50%)"
+                            isRound
+                            bg={buttonBg}
+                            color={buttonColor}
+                            boxShadow="md"
+                            zIndex={2}
+                        />
+                    </Box>
+                )}
             </VStack>
 
             <ImageModal isOpen={isOpen} onClose={onClose} imageUrl={selectedImage} />
