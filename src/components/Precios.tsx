@@ -28,10 +28,10 @@ const PriceCard = ({ title, price, description, icon, isPopular, delay }: PriceC
     const { t } = useLanguage();
     
     // Colores corregidos usando el tema definido
-    const cardBg = useColorModeValue('white', 'dark.background'); // Tema dark usa el background principal
-    const popularBg = useColorModeValue('light.backgroundE6', 'dark.background'); // Tema dark usa el background principal
-    const borderColor = useColorModeValue('gray.200', '#6ba885'); // Tema dark usa un verde más tenue para tarjetas normales
-    const popularBorderColor = useColorModeValue('#0b6f3c', 'dark.text'); // Tema dark usa el color de texto (#90f4c0) para la popular
+    const cardBg = useColorModeValue('white', 'dark.background');
+    const popularBg = useColorModeValue('light.backgroundE6', 'dark.background');
+    const borderColor = useColorModeValue('gray.200', '#3a5a45'); // Tema dark usa un verde aún más sutil para tarjetas normales
+    const popularBorderColor = useColorModeValue('#0b6f3c', 'dark.text');
     const textColor = useColorModeValue('light.text', 'dark.text');
     const headingColor = useColorModeValue('light.primary', 'dark.primary');
     const iconColor = useColorModeValue('light.accent', 'dark.accent');
@@ -39,7 +39,7 @@ const PriceCard = ({ title, price, description, icon, isPopular, delay }: PriceC
     return (
         <MotionCard
             bg={isPopular ? popularBg : cardBg}
-            borderWidth={isPopular ? "2px" : "1px"} // Borde más delgado para tarjetas no populares
+            borderWidth={isPopular ? "2px" : "1px"}
             borderColor={isPopular ? popularBorderColor : borderColor}
             borderRadius="xl"
             overflow="hidden"
@@ -69,7 +69,7 @@ const PriceCard = ({ title, price, description, icon, isPopular, delay }: PriceC
                     fontSize="sm"
                     fontWeight="bold"
                 >
-                    Más Popular
+                    {t('masPopular')}
                 </Badge>
             )}
 
@@ -99,14 +99,14 @@ const PriceCalculator = () => {
     const [checkOut, setCheckOut] = useState('');
 
     // Colores corregidos usando el tema definido
-    const calculatorBg = useColorModeValue('white', 'dark.background'); // Tema dark usa el background principal
-    const inputBg = useColorModeValue('gray.50', 'dark.background'); // Tema dark usa el background principal
+    const calculatorBg = useColorModeValue('white', 'dark.background');
+    const inputBg = useColorModeValue('gray.50', 'dark.background');
     const textColor = useColorModeValue('light.text', 'dark.text');
     const headingColor = useColorModeValue('light.primary', 'dark.primary');
     const resultBg = useColorModeValue('light.secondary', 'dark.secondary');
     const resultColor = useColorModeValue('white', 'white');
     const buttonBg = useColorModeValue('light.accent', 'dark.accent');
-    const borderColor = useColorModeValue('gray.200', 'dark.text'); // Tema dark usa el color de texto (#90f4c0)
+    const borderColor = useColorModeValue('gray.200', 'dark.text');
 
     useMemo(() => {
         if (checkIn && checkOut) {
@@ -129,13 +129,13 @@ const PriceCalculator = () => {
         return (basePrice * nights) + (additionalGuestPrice * additionalGuests * nights) + (petPrice * pets * nights);
     }, [nights, guests, pets]);
 
-    const priceInUSD = (totalPrice / 500).toFixed(0); // Aproximación USD
+    const priceInUSD = (totalPrice / 500).toFixed(0);
 
     return (
         <MotionBox
             bg={calculatorBg}
             p={8}
-            pb={12} // Padding bottom aumentado para dar más espacio vertical
+            pb={12}
             borderRadius="2xl"
             border="1px"
             borderColor={borderColor}
@@ -146,11 +146,11 @@ const PriceCalculator = () => {
             w="100%"
             shadow="lg"
         >
-            <VStack spacing={8}> {/* Aumenté el spacing general de 6 a 8 */}
+            <VStack spacing={8}>
                 <HStack>
                     <Icon as={FaCalculator} w={6} h={6} color={headingColor} />
                     <Heading size="lg" color={headingColor}>
-                        Calculadora de Precios
+                        {t('calculadoraPrecios')}
                     </Heading>
                 </HStack>
 
@@ -165,7 +165,7 @@ const PriceCalculator = () => {
                             bg={inputBg}
                             borderColor={borderColor}
                             _focus={{
-                                borderColor: useColorModeValue('light.accent', 'dark.text'), // Focus con color de texto en dark
+                                borderColor: useColorModeValue('light.accent', 'dark.text'),
                                 boxShadow: `0 0 0 1px ${useColorModeValue('light.accent', 'dark.text')}`
                             }}
                         />
@@ -180,7 +180,7 @@ const PriceCalculator = () => {
                             bg={inputBg}
                             borderColor={borderColor}
                             _focus={{
-                                borderColor: useColorModeValue('light.accent', 'dark.text'), // Focus con color de texto en dark
+                                borderColor: useColorModeValue('light.accent', 'dark.text'),
                                 boxShadow: `0 0 0 1px ${useColorModeValue('light.accent', 'dark.text')}`
                             }}
                         />
@@ -199,7 +199,7 @@ const PriceCalculator = () => {
                                 bg={inputBg}
                                 borderColor={borderColor}
                                 _focus={{
-                                    borderColor: useColorModeValue('light.accent', 'dark.text'), // Focus con color de texto en dark
+                                    borderColor: useColorModeValue('light.accent', 'dark.text'),
                                     boxShadow: `0 0 0 1px ${useColorModeValue('light.accent', 'dark.text')}`
                                 }}
                             />
@@ -211,7 +211,7 @@ const PriceCalculator = () => {
                     </VStack>
                     <VStack align="start" spacing={2}>
                         <Text fontSize="sm" fontWeight="bold" color={textColor}>
-                            <Icon as={FaPaw} mr={2} />Mascotas
+                            <Icon as={FaPaw} mr={2} />{t('mascotas')}
                         </Text>
                         <NumberInput 
                             value={pets} 
@@ -223,7 +223,7 @@ const PriceCalculator = () => {
                                 bg={inputBg}
                                 borderColor={borderColor}
                                 _focus={{
-                                    borderColor: useColorModeValue('light.accent', 'dark.text'), // Focus con color de texto en dark
+                                    borderColor: useColorModeValue('light.accent', 'dark.text'),
                                     boxShadow: `0 0 0 1px ${useColorModeValue('light.accent', 'dark.text')}`
                                 }}
                             />
@@ -237,24 +237,24 @@ const PriceCalculator = () => {
 
                 <Box bg={resultBg} p={6} borderRadius="xl" w="100%" shadow="md">
                     <VStack spacing={3}>
-                        <Heading size="md" color={resultColor}>Total Estimado</Heading>
+                        <Heading size="md" color={resultColor}>{t('totalEstimado')}</Heading>
                         <HStack spacing={6} justify="center" flexWrap="wrap">
                             <VStack>
-                                <Text fontSize="sm" color={resultColor} opacity={0.9}>Colones</Text>
+                                <Text fontSize="sm" color={resultColor} opacity={0.9}>{t('colones')}</Text>
                                 <Text fontSize="2xl" fontWeight="bold" color={resultColor}>
                                     ₡{totalPrice.toLocaleString()}
                                 </Text>
                             </VStack>
                             <VStack>
-                                <Text fontSize="sm" color={resultColor} opacity={0.9}>Dólares (aprox.)</Text>
+                                <Text fontSize="sm" color={resultColor} opacity={0.9}>{t('dolares')}</Text>
                                 <Text fontSize="2xl" fontWeight="bold" color={resultColor}>
                                     ${priceInUSD}
                                 </Text>
                             </VStack>
                         </HStack>
                         <Text fontSize="sm" color={resultColor} textAlign="center" opacity={0.9}>
-                            {nights} {nights === 1 ? 'noche' : 'noches'} • {guests} {guests === 1 ? 'huésped' : 'huéspedes'}
-                            {pets > 0 && ` • ${pets} ${pets === 1 ? 'mascota' : 'mascotas'}`}
+                            {nights} {nights === 1 ? t('noche') : t('noches')} • {guests} {guests === 1 ? t('huesped') : t('huespedes')}
+                            {pets > 0 && ` • ${pets} ${pets === 1 ? t('mascota') : t('mascotas')}`}
                         </Text>
                         <ScrollLink to="contacto" smooth={true} duration={500} offset={-100}>
                             <Button
@@ -276,38 +276,38 @@ const PriceCalculator = () => {
                     </VStack>
                 </Box>
 
-                {/* Sección "A tener en cuenta" dentro de la calculadora - SIN contenedor */}
-                <VStack spacing={6}> {/* Aumenté el spacing de 4 a 6 */}
+                {/* Sección "A tener en cuenta" dentro de la calculadora */}
+                <VStack spacing={10} pt={4}>
                     <HStack>
-                        <Icon as={FaInfoCircle} w={6} h={6} color={headingColor} /> {/* Aumenté el tamaño del icono */}
+                        <Icon as={FaInfoCircle} w={6} h={6} color={headingColor} />
                         <Heading size="md" color={headingColor}>
                             {t('aTenerEnCuenta')}
                         </Heading>
                     </HStack>
 
-                    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} w="100%"> {/* Aumenté el spacing de 4 a 6 */}
-                        <VStack align="center" spacing={2}> {/* Cambiado de "start" a "center" */}
+                    <SimpleGrid columns={{ base: 1, md: 3 }} spacing={6} w="100%">
+                        <VStack align="center" spacing={2}>
                             <Text fontWeight="bold" color={headingColor} fontSize="sm" textAlign="center">
-                                Capacidad
+                                {t('capacidad')}
                             </Text>
-                            <Text fontSize="sm" color={textColor} textAlign="center"> {/* Agregado textAlign="center" */}
-                                La tarifa base es para 2 personas. Se pueden alojar hasta 6 personas en total.
+                            <Text fontSize="sm" color={textColor} textAlign="center">
+                                {t('capacidadDesc')}
                             </Text>
                         </VStack>
-                        <VStack align="center" spacing={2}> {/* Cambiado de "start" a "center" */}
+                        <VStack align="center" spacing={2}>
                             <Text fontWeight="bold" color={headingColor} fontSize="sm" textAlign="center">
-                                Política de Cancelación
+                                {t('politicaCancelacion')}
                             </Text>
-                            <Text fontSize="sm" color={textColor} textAlign="center"> {/* Agregado textAlign="center" */}
+                            <Text fontSize="sm" color={textColor} textAlign="center">
                                 {t('tenerEnCuenta2')}
                             </Text>
                         </VStack>
-                        <VStack align="center" spacing={2}> {/* Cambiado de "start" a "center" */}
+                        <VStack align="center" spacing={2}>
                             <Text fontWeight="bold" color={headingColor} fontSize="sm" textAlign="center">
-                                Check-in/Check-out
+                                {t('checkInOut')}
                             </Text>
-                            <Text fontSize="sm" color={textColor} textAlign="center"> {/* Agregado textAlign="center" */}
-                                El check-in es a partir de las 3:00 PM y el check-out es hasta las 11:00 AM.
+                            <Text fontSize="sm" color={textColor} textAlign="center">
+                                {t('checkInOutDesc')}
                             </Text>
                         </VStack>
                     </SimpleGrid>
@@ -328,24 +328,24 @@ export function Precios() {
 
     const priceCards = [
         { 
-            title: "Tarifa Base", 
-            price: '₡35,000 / noche', 
-            description: "Hasta dos personas", 
+            title: t('tarifaBase'), 
+            price: '₡35,000 / ' + t('noche'), 
+            description: t('hastaDosPers'), 
             icon: MdNightlight, 
             isPopular: true, 
             delay: 0.1 
         },
         { 
             title: t('personaAdicional'), 
-            price: '₡7,000 / noche', 
-            description: "Por cada persona extra", 
+            price: '₡7,000 / ' + t('noche'), 
+            description: t('porCadaPersona'), 
             icon: MdPersonAdd, 
             delay: 0.2 
         },
         { 
             title: t('petFriendly'), 
             price: '₡5,000 / estadía', 
-            description: "Por cada mascota", 
+            description: t('porCadaMascota'), 
             icon: FaPaw, 
             delay: 0.3 
         }
