@@ -7,7 +7,7 @@ import { FaWineGlassAlt, FaFire, FaEye, FaChess } from 'react-icons/fa';
 import { MdBalcony, MdOutlineKitchen } from 'react-icons/md';
 import { GiBroccoli } from "react-icons/gi";
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { useState, useRef } from 'react';
+import { useState} from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import balconImg from '../assets/balcon.jpg';
 import cocinaImg from '../assets/cocina.webp';
@@ -18,7 +18,7 @@ import juegosImg from '../assets/juegos.webp';
 
 const MotionBox = motion(Box);
 
-const ExperienceCard = ({ experience, index, onViewImage }: { experience: any, index: number, onViewImage: (image: string) => void }) => {
+const ExperienceCard = ({ experience, onViewImage }: { experience: any, index: number, onViewImage: (image: string) => void }) => {
     const { t } = useLanguage();
     const cardTextColor = useColorModeValue('white', 'dark.primary');
     const glowColor = useColorModeValue('#0b6f3c', '#90f4c0');
