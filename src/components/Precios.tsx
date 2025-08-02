@@ -25,7 +25,7 @@ interface PriceCardProps {
 }
 
 const PriceCard = ({ title, price, description, icon, isPopular, delay }: PriceCardProps) => {
-    const { t } = useLanguage();
+    const {} = useLanguage();
     
     // Colores corregidos usando el tema definido
     const cardBg = useColorModeValue('white', 'dark.background'); // Tema dark usa el background principal
