@@ -39,12 +39,27 @@ const ExperienceCard = ({ experience, index, onViewImage, containerRef }: { expe
             w="100%"
             borderWidth="2px"
             borderColor="transparent"
+            bg="gray.100"
             _hover={{
                 borderColor: glowColor,
                 boxShadow: `0 0 10px ${glowColor}`,
             }}
         >
-            <Image src={experience.image} alt={t(experience.titleKey)} w="100%" h="100%" objectFit="cover" />
+            <Image 
+                src={experience.image} 
+                alt={t(experience.titleKey)} 
+                w="100%" 
+                h="100%" 
+                objectFit="cover"
+                objectPosition="center"
+                loading="eager"
+                onError={(e) => {
+                    console.error(`Error loading image: ${experience.image}`, e);
+                }}
+                onLoad={() => {
+                    console.log(`Image loaded successfully: ${experience.image}`);
+                }}
+            />
             
             <IconButton
                 aria-label={t('verImagen')}
@@ -189,8 +204,16 @@ export function Experiencias() {
     const buttonBg = useColorModeValue('white', 'gray.800');
     const buttonColor = useColorModeValue('gray.600', 'gray.200');
 
-    // Cálculo del porcentaje de desplazamiento
-    const translatePercentage = cardsToShow > 0 ? (currentIndex * (100 / cardsToShow)) : 0;
+    // Cálculo del porcentaje de desplazamiento - Fix para múltiples imágenes
+    const translatePercentage = (currentIndex * 100);
+
+    console.log('Carousel Debug:', {
+        currentIndex,
+        cardsToShow,
+        maxIndex,
+        translatePercentage,
+        totalCards
+    });
 
     return (
         <Box id="experiencias" py={{ base: 12, md: 24 }} px={{ base: 4, md: 10 }} bg={bgColor}>
@@ -236,17 +259,18 @@ export function Experiencias() {
                     />
 
                     {/* Contenedor del carrusel */}
-                    <Box overflow="hidden" ref={carouselRef}>
+                    <Box overflow="hidden" ref={carouselRef} w="100%">
                         <Flex
                             transition="transform 0.5s ease-in-out"
                             transform={`translateX(-${translatePercentage}%)`}
-                            w={`${(totalCards / cardsToShow) * 100}%`}
+                            w={`${totalCards * 100}%`}
                         >
                             {experienceData.map((exp, index) => (
                                 <Box 
                                     key={index} 
                                     flex={`0 0 ${100 / totalCards}%`}
                                     p={{ base: 2, sm: 3, lg: 4 }}
+                                    w={`${100 / totalCards}%`}
                                 >
                                     <ExperienceCard 
                                         experience={exp} 
@@ -286,23 +310,25 @@ export function Experiencias() {
                     />
                 </Box>
 
-                {/* Indicadores de posición (opcional, para móvil) */}
-                {cardsToShow === 1 && (
-                    <Flex justify="center" gap={2} mt={4}>
-                        {Array.from({ length: totalCards }).map((_, index) => (
-                            <Box
-                                key={index}
-                                w={3}
-                                h={3}
-                                borderRadius="full"
-                                bg={currentIndex === index ? headingColor : 'gray.300'}
-                                cursor="pointer"
-                                transition="all 0.2s ease"
-                                onClick={() => setCurrentIndex(index)}
-                            />
-                        ))}
-                    </Flex>
-                )}
+                {/* Indicadores de posición mejorados */}
+                <Flex justify="center" gap={2} mt={4}>
+                    {Array.from({ length: totalCards }).map((_, index) => (
+                        <Box
+                            key={index}
+                            w={3}
+                            h={3}
+                            borderRadius="full"
+                            bg={currentIndex === index ? headingColor : 'gray.300'}
+                            cursor="pointer"
+                            transition="all 0.2s ease"
+                            onClick={() => setCurrentIndex(index)}
+                            _hover={{
+                                bg: currentIndex === index ? headingColor : 'gray.400',
+                                transform: 'scale(1.1)'
+                            }}
+                        />
+                    ))}
+                </Flex>
             </VStack>
 
             <ImageModal isOpen={isOpen} onClose={onClose} imageUrl={selectedImage} />
