@@ -43,7 +43,7 @@ export default async function handler(req, res) {
     }
 
     // Configuración de Nodemailer usando variables de entorno de Vercel
-    const transporter = nodemailer.createTransporter({
+    const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
         user: process.env.EMAIL_USER,
