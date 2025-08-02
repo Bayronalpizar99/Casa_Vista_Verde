@@ -2,11 +2,6 @@
 import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
-  // Solo permitir método POST
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
   // Configurar CORS
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -16,7 +11,18 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
+  // Solo permitir método POST
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   try {
+    console.log('Request body:', req.body);
+    console.log('Environment variables check:', {
+      EMAIL_USER: process.env.EMAIL_USER ? 'SET' : 'NOT_SET',
+      EMAIL_PASS: process.env.EMAIL_PASS ? 'SET' : 'NOT_SET'
+    });
+
     const { name, email, checkIn, checkOut, guests, message } = req.body;
 
     // Validar datos requeridos
@@ -24,6 +30,15 @@ export default async function handler(req, res) {
       return res.status(400).json({ 
         success: false, 
         error: 'Faltan datos requeridos' 
+      });
+    }
+
+    // Validar variables de entorno
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.error('Variables de entorno faltantes');
+      return res.status(500).json({ 
+        success: false, 
+        error: 'Configuración del servidor incompleta' 
       });
     }
 
@@ -37,9 +52,10 @@ export default async function handler(req, res) {
     });
 
     const mailOptions = {
-      from: `"${name}" <${email}>`,
+      from: `"${name}" <${process.env.EMAIL_USER}>`,
       to: process.env.EMAIL_USER,
       subject: `Nueva solicitud de reserva de ${name}`,
+      replyTo: email,
       html: `
         <h1>Nueva Solicitud de Reserva</h1>
         <p><strong>Nombre:</strong> ${name}</p>
@@ -52,7 +68,9 @@ export default async function handler(req, res) {
       `,
     };
 
+    console.log('Intentando enviar email...');
     await transporter.sendMail(mailOptions);
+    console.log('Email enviado exitosamente');
     
     res.status(200).json({ 
       success: true, 
@@ -60,10 +78,11 @@ export default async function handler(req, res) {
     });
 
   } catch (error) {
-    console.error('Error al enviar el correo:', error);
+    console.error('Error detallado:', error);
     res.status(500).json({ 
       success: false, 
-      error: 'Hubo un error al enviar la solicitud.' 
+      error: 'Hubo un error al enviar la solicitud.',
+      details: error.message
     });
   }
 }
