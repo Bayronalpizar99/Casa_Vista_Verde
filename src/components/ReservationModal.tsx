@@ -4,7 +4,7 @@ import {
     NumberInputField, NumberInputStepper, NumberIncrementStepper, NumberDecrementStepper, useToast,
     HStack
 } from '@chakra-ui/react';
-import { useState, useEffect } from 'react'; // Importa useEffect
+import { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
 export function ReservationModal({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
@@ -54,7 +54,8 @@ export function ReservationModal({ isOpen, onClose }: { isOpen: boolean, onClose
         e.preventDefault();
         setIsLoading(true);
 
-        const backendUrl = `${import.meta.env.VITE_API_URL}/api/send-email`;
+        // Para Vercel, usar URL relativa
+        const backendUrl = '/api/send-email';
 
         try {
             const response = await fetch(backendUrl, {
@@ -63,8 +64,10 @@ export function ReservationModal({ isOpen, onClose }: { isOpen: boolean, onClose
                 body: JSON.stringify(formData),
             });
 
+            const data = await response.json();
+
             if (!response.ok) {
-                throw new Error('La respuesta del servidor no fue OK');
+                throw new Error(data.error || 'Error en el servidor');
             }
             
             onClose(); 
@@ -112,7 +115,6 @@ export function ReservationModal({ isOpen, onClose }: { isOpen: boolean, onClose
                                     <FormLabel>{t('fechaLlegada')}</FormLabel>
                                     <Input name="checkIn" type="date" onChange={handleChange} min={new Date().toISOString().split("T")[0]} value={formData.checkIn}/>
                                 </FormControl>
-                                {}
                                 <FormControl isRequired isDisabled={!formData.checkIn}>
                                     <FormLabel>{t('fechaSalida')}</FormLabel>
                                     <Input name="checkOut" type="date" onChange={handleChange} min={formData.checkIn} value={formData.checkOut}/>
