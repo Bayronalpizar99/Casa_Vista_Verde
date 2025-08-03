@@ -114,7 +114,7 @@ export function Hero() {
         ))}
       </Swiper>
 
-      {/* Flechas de navegación */}
+      {/* Flechas de navegación - Solo en desktop */}
       <IconButton
         aria-label="Imagen anterior"
         icon={<ChevronLeftIcon w={8} h={8} />}
@@ -128,6 +128,7 @@ export function Hero() {
         bg={navButtonBg}
         color={navButtonColor}
         size="lg"
+        display={{ base: 'none', md: 'flex' }}
         _hover={{
           bg: 'whiteAlpha.500',
           transform: 'translateY(-50%) scale(1.1)',
@@ -148,6 +149,7 @@ export function Hero() {
         bg={navButtonBg}
         color={navButtonColor}
         size="lg"
+        display={{ base: 'none', md: 'flex' }}
         _hover={{
           bg: 'whiteAlpha.500',
           transform: 'translateY(-50%) scale(1.1)',
