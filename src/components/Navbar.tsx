@@ -10,6 +10,7 @@ import {
   useColorMode,
   useColorModeValue,
   Text,
+  Divider,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon, SunIcon, MoonIcon } from '@chakra-ui/icons';
 import { useLanguage } from '../context/LanguageContext';
@@ -182,10 +183,42 @@ export function Navbar() {
         />
       </Flex>
 
+      {/* Mobile menu */}
       {isOpen ? (
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as="nav" spacing={4} align="center">
+            {/* Navigation links */}
             {links}
+            
+            {/* Divider */}
+            <Box width="80%" pt={2}>
+              <Divider borderColor={borderColor} />
+            </Box>
+            
+            {/* Theme and language controls for mobile */}
+            <HStack spacing={6} pt={2}>
+              <IconButton
+                aria-label="Toggle theme"
+                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+                onClick={toggleColorMode}
+                variant="ghost"
+                size="lg"
+                color={navTextColor}
+                _hover={{ bg: 'blackAlpha.200' }}
+              />
+              <Button
+                onClick={toggleLang}
+                variant="ghost"
+                size="md"
+                textTransform="uppercase"
+                color={navTextColor}
+                _hover={{ bg: 'blackAlpha.200' }}
+                fontSize="lg"
+                fontWeight="bold"
+              >
+                {lang}
+              </Button>
+            </HStack>
           </Stack>
         </Box>
       ) : null}
