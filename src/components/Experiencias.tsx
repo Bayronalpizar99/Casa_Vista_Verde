@@ -258,7 +258,7 @@ export function Experiencias() {
                 {isMobile ? (
                     <Box position="relative" w="100%" maxW="400px">
                         {/* Stack de tarjetas - Solo muestra la actual */}
-                        <Box position="relative" h="350px">
+                        <Box position="relative" h="350px" zIndex={1}>
                             {experienceData.map((exp, index) => (
                                 <Box
                                     key={index}
@@ -298,7 +298,7 @@ export function Experiencias() {
                             boxShadow="lg"
                             size="md"
                             _hover={{ bg: buttonBg, transform: 'translateY(-50%) scale(1.1)' }}
-                            zIndex={3}
+                            zIndex={5}
                         />
                         
                         <IconButton
@@ -315,7 +315,7 @@ export function Experiencias() {
                             boxShadow="lg"
                             size="md"
                             _hover={{ bg: buttonBg, transform: 'translateY(-50%) scale(1.1)' }}
-                            zIndex={3}
+                            zIndex={5}
                         />
 
                         {/* Indicadores */}
@@ -361,7 +361,7 @@ export function Experiencias() {
                             bg={buttonBg}
                             color={buttonColor}
                             boxShadow="md"
-                            zIndex={2}
+                            zIndex={5}
                         />
 
                         <Box overflow="hidden">
@@ -394,7 +394,7 @@ export function Experiencias() {
                             bg={buttonBg}
                             color={buttonColor}
                             boxShadow="md"
-                            zIndex={2}
+                            zIndex={5}
                         />
                     </Box>
                 )}

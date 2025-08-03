@@ -43,21 +43,23 @@ export function ScrollToTopButton() {
         size={{ base: "md", md: "lg" }}
         bg={buttonBg}
         color={buttonColor}
-        zIndex="sticky"
+        zIndex="tooltip" // Cambié de "sticky" a "tooltip" para mayor z-index
         boxShadow="lg"
         _hover={{
           transform: 'translateY(-2px)',
           boxShadow: 'xl',
         }}
-        // Ajustes específicos para móvil
-        minW={{ base: "48px", md: "auto" }}
-        minH={{ base: "48px", md: "auto" }}
-        // Asegurar que sea fácil de tocar en móvil
+        // Asegurar que sea perfectamente redondo
+        borderRadius="full"
+        width={{ base: "48px", md: "56px" }}
+        height={{ base: "48px", md: "56px" }}
+        minW={{ base: "48px", md: "56px" }}
+        minH={{ base: "48px", md: "56px" }}
+        // Mejora la experiencia táctil
         _active={{
           transform: 'translateY(0px)',
           boxShadow: 'md',
         }}
-        // Mejora la experiencia táctil
         transition="all 0.2s ease-in-out"
       />
     </SlideFade>
