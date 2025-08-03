@@ -51,7 +51,7 @@ export const translations = {
 
     // --- Textos de Ubicacion ---
     ubicacionTitle: 'Un Refugio en las Alturas de Tapezco',
-    ubicacionSubtitle: 'Estamos ubicados en las tranquilas montañas de Tapezco a tan solo 5 minutos de Zarcero, un lugar famoso por su aire fresco, sus paisajes verdes y su cultura auténtica.',
+    ubicacionSubtitle: 'Estamos ubicados en las tranquilas montañas de Tapezco a tan solo 5 minutos del parque Zarcero, un lugar famoso por su aire fresco, sus paisajes verdes y su cultura auténtica.',
     encuentranos: 'Encuéntranos',
     direccionCompleta: 'Tapezco, Zarcero, Alajuela, Costa Rica',
     tesorosDeZarcero: 'Tesoros de Zarcero',
@@ -198,7 +198,7 @@ export const translations = {
 
     // --- Location Texts ---
     ubicacionTitle: 'A Refuge in the Heights of Tapezco',
-    ubicacionSubtitle: 'We are located in the peaceful mountains of Tapezco, just 5 minutes from Zarcero, a place famous for its fresh air, green landscapes, and authentic culture.',
+    ubicacionSubtitle: 'We are located in the tranquil Tapezco Mountains, just 5 minutes from Zarcero Park, a place famous for its fresh air, green landscapes, and authentic culture..',
     encuentranos: 'Find Us',
     direccionCompleta: 'Tapezco, Zarcero, Alajuela, Costa Rica',
     tesorosDeZarcero: 'Treasures of Zarcero',

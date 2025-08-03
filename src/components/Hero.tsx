@@ -13,15 +13,11 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Link as ScrollLink } from 'react-scroll';
 import { useLanguage } from '../context/LanguageContext';
 import { useRef, useState } from 'react';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
-
-// Importa tus archivos
-
 import home2 from '../assets/home2.mp4';
 import home3 from '../assets/home3.webp';
 import home4 from '../assets/home4.webp';
