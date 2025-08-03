@@ -2,12 +2,11 @@ import {
     Box, Heading, Text, VStack, Image, useColorModeValue, Icon,
     useDisclosure, Modal, ModalOverlay, ModalContent, ModalBody, ModalCloseButton, IconButton, Flex, useBreakpointValue
 } from '@chakra-ui/react';
-import { motion } from 'framer-motion';
 import { FaWineGlassAlt, FaFire, FaEye, FaChess } from 'react-icons/fa';
 import { MdBalcony, MdOutlineKitchen } from 'react-icons/md';
 import { GiBroccoli } from "react-icons/gi";
 import { ChevronLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
-import { useState} from 'react';
+import { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import balconImg from '../assets/balcon.jpg';
 import cocinaImg from '../assets/cocina.webp';
@@ -16,9 +15,11 @@ import hogueraImg from '../assets/hoguera.webp';
 import fincaImg from '../assets/finca.webp';
 import juegosImg from '../assets/juegos.webp';
 
-const MotionBox = motion(Box);
-
-const ExperienceCard = ({ experience, onViewImage }: { experience: any, index: number, onViewImage: (image: string) => void }) => {
+const ExperienceCard = ({ experience, onViewImage, isActive }: { 
+    experience: any, 
+    onViewImage: (image: string) => void,
+    isActive?: boolean 
+}) => {
     const { t } = useLanguage();
     const cardTextColor = useColorModeValue('white', 'dark.primary');
     const glowColor = useColorModeValue('#0b6f3c', '#90f4c0');
@@ -26,10 +27,7 @@ const ExperienceCard = ({ experience, onViewImage }: { experience: any, index: n
     const eyeButtonColor = useColorModeValue('light.accent', 'dark.accent');
 
     return (
-        <MotionBox
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
+        <Box
             position="relative"
             borderRadius="lg"
             overflow="hidden"
@@ -38,14 +36,14 @@ const ExperienceCard = ({ experience, onViewImage }: { experience: any, index: n
             w="100%"
             borderWidth="2px"
             borderColor="transparent"
-            bg="gray.200"
+            bg="gray.100"
             _hover={{
                 borderColor: glowColor,
                 boxShadow: `0 0 15px ${glowColor}`,
-                transform: 'scale(1.02)'
             }}
+            opacity={isActive === false ? 0.7 : 1}
+            transform={isActive === false ? 'scale(0.95)' : 'scale(1)'}
             transitionDuration="0.3s"
-            transitionTimingFunction="ease"
         >
             <Image 
                 src={experience.image} 
@@ -54,15 +52,11 @@ const ExperienceCard = ({ experience, onViewImage }: { experience: any, index: n
                 h="100%" 
                 objectFit="cover"
                 objectPosition="center"
-                loading="lazy"
-                fallback={
-                    <Flex align="center" justify="center" h="100%" bg="gray.200">
-                        <Text>Cargando imagen...</Text>
-                    </Flex>
-                }
+                loading="eager"
+                decoding="sync"
+                onLoad={() => console.log(`✅ Imagen cargada: ${experience.titleKey}`)}
                 onError={(e) => {
-                    console.error(`Error cargando imagen: ${experience.image}`);
-                    e.currentTarget.style.display = 'none';
+                    console.error(`❌ Error cargando: ${experience.titleKey}`, e);
                 }}
             />
             
@@ -105,7 +99,7 @@ const ExperienceCard = ({ experience, onViewImage }: { experience: any, index: n
                     </Text>
                 </VStack>
             </Box>
-        </MotionBox>
+        </Box>
     );
 };
 
@@ -186,25 +180,49 @@ export function Experiencias() {
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [imagesLoaded, setImagesLoaded] = useState<boolean[]>(new Array(experienceData.length).fill(false));
     const isMobile = useBreakpointValue({ base: true, md: false });
     const cardsToShow = useBreakpointValue({ base: 1, sm: 2, lg: 3, xl: 4 }) || 1;
     const totalCards = experienceData.length;
 
+    // Precargar todas las imágenes
+    useEffect(() => {
+        const preloadImages = async () => {
+            const loadPromises = experienceData.map((exp, idx) => {
+                return new Promise<void>((resolve) => {
+                    const img = new window.Image();
+                    img.onload = () => {
+                        console.log(`🖼️ Precargada: ${exp.titleKey}`);
+                        setImagesLoaded(prev => {
+                            const newState = [...prev];
+                            newState[idx] = true;
+                            return newState;
+                        });
+                        resolve();
+                    };
+                    img.onerror = () => {
+                        console.error(`❌ Error precargando: ${exp.titleKey}`);
+                        resolve();
+                    };
+                    img.src = exp.image;
+                });
+            });
+
+            await Promise.all(loadPromises);
+            console.log('✅ Todas las imágenes precargadas');
+        };
+
+        preloadImages();
+    }, []);
+
     const handlePrev = () => {
-        if (isMobile) {
-            setCurrentIndex((prev) => (prev === 0 ? totalCards - 1 : prev - 1));
-        } else {
-            setCurrentIndex((prev) => Math.max(0, prev - 1));
-        }
+        console.log(`⬅️ Prev: ${currentIndex} -> ${currentIndex === 0 ? totalCards - 1 : currentIndex - 1}`);
+        setCurrentIndex((prev) => (prev === 0 ? totalCards - 1 : prev - 1));
     };
 
     const handleNext = () => {
-        if (isMobile) {
-            setCurrentIndex((prev) => (prev === totalCards - 1 ? 0 : prev + 1));
-        } else {
-            const maxIndex = Math.max(0, totalCards - cardsToShow);
-            setCurrentIndex((prev) => Math.min(maxIndex, prev + 1));
-        }
+        console.log(`➡️ Next: ${currentIndex} -> ${currentIndex === totalCards - 1 ? 0 : currentIndex + 1}`);
+        setCurrentIndex((prev) => (prev === totalCards - 1 ? 0 : prev + 1));
     };
 
     const handleViewImage = (imageUrl: string) => {
@@ -217,6 +235,8 @@ export function Experiencias() {
     const textColor = useColorModeValue('light.text', 'dark.text');
     const buttonBg = useColorModeValue('white', 'gray.700');
     const buttonColor = useColorModeValue('gray.600', 'gray.200');
+
+    console.log('🔄 Render - Current Index:', currentIndex, 'Images Loaded:', imagesLoaded);
 
     return (
         <Box id="experiencias" py={{ base: 12, md: 24 }} px={{ base: 4, md: 8 }} bg={bgColor}>
@@ -234,29 +254,36 @@ export function Experiencias() {
                     {t('experienciasSubtitle')}
                 </Text>
                 
-                {/* Carrusel Mobile */}
+                {/* Carrusel Mobile - Stack Simple */}
                 {isMobile ? (
                     <Box position="relative" w="100%" maxW="400px">
-                        <Box overflow="hidden" borderRadius="lg">
-                            <Flex
-                                transitionDuration="0.4s"
-                                transitionTimingFunction="ease-in-out"
-                                transform={`translateX(-${currentIndex * 100}%)`}
-                                w={`${totalCards * 100}%`}
-                            >
-                                {experienceData.map((exp, index) => (
-                                    <Box key={index} w={`${100 / totalCards}%`} px={2}>
-                                        <ExperienceCard 
-                                            experience={exp} 
-                                            index={index} 
-                                            onViewImage={handleViewImage} 
-                                        />
-                                    </Box>
-                                ))}
-                            </Flex>
+                        {/* Stack de tarjetas - Solo muestra la actual */}
+                        <Box position="relative" h="350px">
+                            {experienceData.map((exp, index) => (
+                                <Box
+                                    key={index}
+                                    position="absolute"
+                                    top="0"
+                                    left="0"
+                                    w="100%"
+                                    h="100%"
+                                    opacity={currentIndex === index ? 1 : 0}
+                                    transform={currentIndex === index ? 'translateX(0)' : 
+                                              currentIndex > index ? 'translateX(-100%)' : 'translateX(100%)'}
+                                    transitionDuration="0.4s"
+                                    transitionTimingFunction="ease-in-out"
+                                    zIndex={currentIndex === index ? 2 : 1}
+                                >
+                                    <ExperienceCard 
+                                        experience={exp} 
+                                        onViewImage={handleViewImage}
+                                        isActive={currentIndex === index}
+                                    />
+                                </Box>
+                            ))}
                         </Box>
 
-                        {/* Botones Mobile */}
+                        {/* Botones de navegación */}
                         <IconButton
                             aria-label={t('anterior')}
                             icon={<ChevronLeftIcon w={6} h={6} />}
@@ -271,6 +298,7 @@ export function Experiencias() {
                             boxShadow="lg"
                             size="md"
                             _hover={{ bg: buttonBg, transform: 'translateY(-50%) scale(1.1)' }}
+                            zIndex={3}
                         />
                         
                         <IconButton
@@ -287,26 +315,35 @@ export function Experiencias() {
                             boxShadow="lg"
                             size="md"
                             _hover={{ bg: buttonBg, transform: 'translateY(-50%) scale(1.1)' }}
+                            zIndex={3}
                         />
 
-                        {/* Indicadores Mobile */}
+                        {/* Indicadores */}
                         <Flex justify="center" gap={2} mt={6}>
                             {experienceData.map((_, index) => (
                                 <Box
                                     key={index}
-                                    w={currentIndex === index ? 6 : 3}
+                                    w={currentIndex === index ? 8 : 3}
                                     h={3}
                                     borderRadius="full"
                                     bg={currentIndex === index ? headingColor : 'gray.300'}
                                     cursor="pointer"
                                     transitionDuration="0.3s"
-                                    onClick={() => setCurrentIndex(index)}
+                                    onClick={() => {
+                                        console.log(`🎯 Click indicador: ${index}`);
+                                        setCurrentIndex(index);
+                                    }}
                                     _hover={{
                                         bg: currentIndex === index ? headingColor : 'gray.400',
                                     }}
                                 />
                             ))}
                         </Flex>
+
+                        {/* Debug info */}
+                        <Text fontSize="xs" color="gray.500" mt={2} textAlign="center">
+                            {currentIndex + 1} / {totalCards} - {experienceData[currentIndex].titleKey}
+                        </Text>
                     </Box>
                 ) : (
                     /* Carrusel Desktop */
@@ -314,7 +351,7 @@ export function Experiencias() {
                         <IconButton
                             aria-label={t('anterior')}
                             icon={<ChevronLeftIcon w={8} h={8} />}
-                            onClick={handlePrev}
+                            onClick={() => setCurrentIndex(prev => Math.max(0, prev - 1))}
                             isDisabled={currentIndex === 0}
                             position="absolute"
                             left="-60px"
@@ -337,7 +374,6 @@ export function Experiencias() {
                                     <Box key={index} flex={`0 0 ${100 / cardsToShow}%`} px={4}>
                                         <ExperienceCard 
                                             experience={exp} 
-                                            index={index} 
                                             onViewImage={handleViewImage} 
                                         />
                                     </Box>
@@ -348,7 +384,7 @@ export function Experiencias() {
                         <IconButton
                             aria-label={t('siguiente')}
                             icon={<ChevronRightIcon w={8} h={8} />}
-                            onClick={handleNext}
+                            onClick={() => setCurrentIndex(prev => Math.min(totalCards - cardsToShow, prev + 1))}
                             isDisabled={currentIndex >= totalCards - cardsToShow}
                             position="absolute"
                             right="-60px"
