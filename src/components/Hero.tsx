@@ -114,21 +114,24 @@ export function Hero() {
         ))}
       </Swiper>
 
-      {/* Flechas de navegación - Solo en desktop */}
+      {/* Flechas de navegación */}
       <IconButton
         aria-label="Imagen anterior"
-        icon={<ChevronLeftIcon w={8} h={8} />}
+        icon={<ChevronLeftIcon w={{ base: 5, md: 8 }} h={{ base: 5, md: 8 }} />}
         onClick={handlePrev}
         position="absolute"
         left={{ base: 4, md: 8 }}
-        top="50%"
+        top={{ base: '35%', md: '50%' }}
         transform="translateY(-50%)"
         zIndex={3}
         isRound
         bg={navButtonBg}
         color={navButtonColor}
-        size="lg"
-        display={{ base: 'none', md: 'flex' }}
+        size={{ base: 'md', md: 'lg' }}
+        w={{ base: '48px', md: '56px' }}
+        h={{ base: '48px', md: '56px' }}
+        minW={{ base: '48px', md: '56px' }}
+        borderRadius="full"
         _hover={{
           bg: 'whiteAlpha.500',
           transform: 'translateY(-50%) scale(1.1)',
@@ -138,18 +141,21 @@ export function Hero() {
 
       <IconButton
         aria-label="Siguiente imagen"
-        icon={<ChevronRightIcon w={8} h={8} />}
+        icon={<ChevronRightIcon w={{ base: 5, md: 8 }} h={{ base: 5, md: 8 }} />}
         onClick={handleNext}
         position="absolute"
         right={{ base: 4, md: 8 }}
-        top="50%"
+        top={{ base: '35%', md: '50%' }}
         transform="translateY(-50%)"
         zIndex={3}
         isRound
         bg={navButtonBg}
         color={navButtonColor}
-        size="lg"
-        display={{ base: 'none', md: 'flex' }}
+        size={{ base: 'md', md: 'lg' }}
+        w={{ base: '48px', md: '56px' }}
+        h={{ base: '48px', md: '56px' }}
+        minW={{ base: '48px', md: '56px' }}
+        borderRadius="full"
         _hover={{
           bg: 'whiteAlpha.500',
           transform: 'translateY(-50%) scale(1.1)',
