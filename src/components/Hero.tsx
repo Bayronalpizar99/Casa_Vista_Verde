@@ -121,17 +121,19 @@ export function Hero() {
         onClick={handlePrev}
         position="absolute"
         left={{ base: 4, md: 8 }}
-        top={{ base: '35%', md: '50%' }}
+        top={{ base: '42%', md: '50%' }}
         transform="translateY(-50%)"
         zIndex={3}
-        isRound
         bg={navButtonBg}
         color={navButtonColor}
-        size={{ base: 'md', md: 'lg' }}
-        w={{ base: '48px', md: '56px' }}
-        h={{ base: '48px', md: '56px' }}
-        minW={{ base: '48px', md: '56px' }}
-        borderRadius="full"
+        w={{ base: '40px', md: '48px' }}
+        h={{ base: '40px', md: '48px' }}
+        minW={{ base: '40px', md: '48px' }}
+        minH={{ base: '40px', md: '48px' }}
+        borderRadius="50%"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
         _hover={{
           bg: 'whiteAlpha.500',
           transform: 'translateY(-50%) scale(1.1)',
@@ -145,17 +147,19 @@ export function Hero() {
         onClick={handleNext}
         position="absolute"
         right={{ base: 4, md: 8 }}
-        top={{ base: '35%', md: '50%' }}
+        top={{ base: '42%', md: '50%' }}
         transform="translateY(-50%)"
         zIndex={3}
-        isRound
         bg={navButtonBg}
         color={navButtonColor}
-        size={{ base: 'md', md: 'lg' }}
-        w={{ base: '48px', md: '56px' }}
-        h={{ base: '48px', md: '56px' }}
-        minW={{ base: '48px', md: '56px' }}
-        borderRadius="full"
+        w={{ base: '40px', md: '48px' }}
+        h={{ base: '40px', md: '48px' }}
+        minW={{ base: '40px', md: '48px' }}
+        minH={{ base: '40px', md: '48px' }}
+        borderRadius="50%"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
         _hover={{
           bg: 'whiteAlpha.500',
           transform: 'translateY(-50%) scale(1.1)',
