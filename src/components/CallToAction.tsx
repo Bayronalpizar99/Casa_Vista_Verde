@@ -1,4 +1,4 @@
-import { Box, Heading, Button, HStack, useColorModeValue, VStack, Flex, useDisclosure } from '@chakra-ui/react';
+import { Box, Heading, Button, useColorModeValue, VStack, Flex, useDisclosure } from '@chakra-ui/react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { ReservationModal } from './ReservationModal';
@@ -25,12 +25,11 @@ export function CallToAction() {
                     </Heading>
                     
                     {/* Stack vertical en móvil, horizontal en desktop */}
-                    <VStack 
-                        spacing={{ base: 4, md: 0 }}
+                    <Flex
                         direction={{ base: "column", md: "row" }}
-                        as={HStack}
-                        flexDirection={{ base: "column", md: "row" }}
+                        gap={{ base: 4, md: 6 }}
                         alignItems="center"
+                        justifyContent="center"
                         w={{ base: "100%", md: "auto" }}
                     >
                         <Button 
@@ -82,7 +81,7 @@ export function CallToAction() {
                                 {t('contactarWhatsApp')}
                             </Button>
                         </Flex>
-                    </VStack>
+                    </Flex>
                 </VStack>
             </Box>
             
