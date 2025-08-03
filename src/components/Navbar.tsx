@@ -49,6 +49,10 @@ export function Navbar() {
   const borderColor = useColorModeValue('light.text', 'dark.text');
   const accentColor = useColorModeValue('light.accent', 'dark.accent');
   const logoSrc = useColorModeValue(logoLight, logoDark);
+  
+  // Colores para hover con sombra
+  const hoverBgColor = useColorModeValue('gray.100', 'gray.700');
+  const hoverShadow = useColorModeValue('md', 'dark-lg');
 
   const Separator = () => <Text>/</Text>;
 
@@ -155,7 +159,14 @@ export function Navbar() {
                 onClick={toggleColorMode}
                 variant="ghost"
                 color={navTextColor}
-                _hover={{ bg: 'blackAlpha.200' }}
+                size="sm"
+                borderRadius="md"
+                transition="all 0.2s ease-in-out"
+                _hover={{ 
+                  bg: hoverBgColor,
+                  shadow: hoverShadow,
+                  transform: 'translateY(-1px)'
+                }}
               />
               <Button
                 onClick={toggleLang}
@@ -163,7 +174,13 @@ export function Navbar() {
                 size="sm"
                 textTransform="uppercase"
                 color={navTextColor}
-                _hover={{ bg: 'blackAlpha.200' }}
+                borderRadius="md"
+                transition="all 0.2s ease-in-out"
+                _hover={{ 
+                  bg: hoverBgColor,
+                  shadow: hoverShadow,
+                  transform: 'translateY(-1px)'
+                }}
               >
                 {lang}
               </Button>
@@ -204,7 +221,13 @@ export function Navbar() {
                 variant="ghost"
                 size="lg"
                 color={navTextColor}
-                _hover={{ bg: 'blackAlpha.200' }}
+                borderRadius="md"
+                transition="all 0.2s ease-in-out"
+                _hover={{ 
+                  bg: hoverBgColor,
+                  shadow: hoverShadow,
+                  transform: 'translateY(-1px)'
+                }}
               />
               <Button
                 onClick={toggleLang}
@@ -212,9 +235,15 @@ export function Navbar() {
                 size="md"
                 textTransform="uppercase"
                 color={navTextColor}
-                _hover={{ bg: 'blackAlpha.200' }}
                 fontSize="lg"
                 fontWeight="bold"
+                borderRadius="md"
+                transition="all 0.2s ease-in-out"
+                _hover={{ 
+                  bg: hoverBgColor,
+                  shadow: hoverShadow,
+                  transform: 'translateY(-1px)'
+                }}
               >
                 {lang}
               </Button>
