@@ -43,7 +43,7 @@ export function ScrollToTopButton() {
         size={{ base: "md", md: "lg" }}
         bg={buttonBg}
         color={buttonColor}
-        zIndex="tooltip" // Cambié de "sticky" a "tooltip" para mayor z-index
+        zIndex={9999} // Z-index muy alto para estar siempre encima
         boxShadow="lg"
         _hover={{
           transform: 'translateY(-2px)',

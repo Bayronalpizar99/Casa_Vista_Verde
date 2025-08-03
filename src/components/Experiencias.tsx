@@ -258,7 +258,7 @@ export function Experiencias() {
                 {isMobile ? (
                     <Box position="relative" w="100%" maxW="400px">
                         {/* Stack de tarjetas - Solo muestra la actual */}
-                        <Box position="relative" h="350px" zIndex={1}>
+                        <Box position="relative" h="350px" zIndex={1} overflow="hidden">
                             {experienceData.map((exp, index) => (
                                 <Box
                                     key={index}
@@ -273,6 +273,7 @@ export function Experiencias() {
                                     transitionDuration="0.4s"
                                     transitionTimingFunction="ease-in-out"
                                     zIndex={currentIndex === index ? 2 : 1}
+                                    pointerEvents={currentIndex === index ? "auto" : "none"}
                                 >
                                     <ExperienceCard 
                                         experience={exp} 
