@@ -13,12 +13,11 @@ import habitacion1Vista2 from '../assets/Habitación 1- Vista 2.jpg';
 import habitacion2Vista1 from '../assets/Habitación 2- Vista 1.webp';
 import habitacion3Vista1 from '../assets/Habitación 3- Vista 1.jpeg';
 
-
 const MotionBox = motion(Box);
 
 // --- Componente para una Tarjeta de Habitación ---
 const RoomCard = ({ room, onOpen, index }: { room: any, onOpen: (room: any) => void, index: number }) => {
-    const { t } = useLanguage(); // Hook para traducciones
+    const { t } = useLanguage();
     const cardBg = useColorModeValue('white', 'transparent');
     const headingColor = useColorModeValue('light.primary', 'dark.primary');
     const textColor = useColorModeValue('light.text', 'dark.text');
@@ -27,40 +26,108 @@ const RoomCard = ({ room, onOpen, index }: { room: any, onOpen: (room: any) => v
     const buttonColor = useColorModeValue('white', 'dark.primary');
     const glowColor = useColorModeValue('#0b6f3c', '#90f4c0');
 
+    // Variantes de animación optimizadas
+    const cardVariants = {
+        hidden: { 
+            opacity: 0, 
+            y: 50,
+            scale: 0.95
+        },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            scale: 1,
+            transition: {
+                duration: 0.8,
+                delay: index * 0.15,
+                ease: [0.25, 0.46, 0.45, 0.94]
+            }
+        }
+    };
+
     return (
         <MotionBox
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ duration: 0.6, delay: index * 0.2 }}
+            variants={cardVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ 
+                once: false, 
+                amount: 0.2,
+                margin: "-50px 0px -50px 0px"
+            }}
+            style={{
+                backfaceVisibility: 'hidden',
+                perspective: '1000px',
+                willChange: 'transform, opacity'
+            }}
         >
             <Box
                 bg={cardBg}
                 borderWidth="1px"
                 borderRadius="lg"
                 overflow="hidden"
-                transition="all 0.3s ease-in-out"
+                transition="all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
                 h="100%"
                 borderColor={glowColor}
                 shadow={`0 0 2px ${glowColor}`}
-                
+                sx={{
+                    backfaceVisibility: 'hidden',
+                    transform: 'translate3d(0, 0, 0)',
+                    willChange: 'transform, box-shadow'
+                }}
                 _hover={{
-                    transform: 'translateY(-5px)',
+                    transform: 'translate3d(0, -5px, 0)',
                     shadow: `0 0 6px ${glowColor}`,
                 }}
             >
-                <Image src={room.images[0]} alt={t(room.nameKey)} h="250px" w="100%" objectFit="cover" />
+                <Image 
+                    src={room.images[0]} 
+                    alt={t(room.nameKey)} 
+                    h="250px" 
+                    w="100%" 
+                    objectFit="cover"
+                    sx={{
+                        backfaceVisibility: 'hidden',
+                        willChange: 'transform'
+                    }}
+                />
                 <VStack p={6} align="start" spacing={4}>
-                    <Heading as="h3" size="lg" color={headingColor}>{t(room.nameKey)}</Heading>
+                    <Heading 
+                        as="h3" 
+                        size="lg" 
+                        color={headingColor}
+                        sx={{
+                            backfaceVisibility: 'hidden'
+                        }}
+                    >
+                        {t(room.nameKey)}
+                    </Heading>
                     <List spacing={2}>
                         {room.amenities.map((amenity: any, idx: number) => (
-                            <ListItem key={idx} color={textColor}>
+                            <ListItem 
+                                key={idx} 
+                                color={textColor}
+                                sx={{
+                                    backfaceVisibility: 'hidden'
+                                }}
+                            >
                                 <ListIcon as={FaCheckCircle} color={iconColor} />
                                 {t(amenity.textKey)}
                             </ListItem>
                         ))}
                     </List>
-                    <Button bg={buttonBg} color={buttonColor} alignSelf="flex-end" onClick={() => onOpen(room)} _hover={{ opacity: 0.9 }}>
+                    <Button 
+                        bg={buttonBg} 
+                        color={buttonColor} 
+                        alignSelf="flex-end" 
+                        onClick={() => onOpen(room)} 
+                        _hover={{ opacity: 0.9 }}
+                        sx={{
+                            transition: 'all 0.2s ease',
+                            backfaceVisibility: 'hidden',
+                            transform: 'translate3d(0, 0, 0)'
+                        }}
+                    >
                         {t('verDetalles')}
                     </Button>
                 </VStack>
@@ -70,13 +137,12 @@ const RoomCard = ({ room, onOpen, index }: { room: any, onOpen: (room: any) => v
 };
 
 const RoomDetailModal = ({ isOpen, onClose, room }: { isOpen: boolean, onClose: () => void, room: any | null }) => {
-    const { t } = useLanguage(); // Hook para traducciones
+    const { t } = useLanguage();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const modalBg = useColorModeValue('white', '#0b0f0d');
     const headerColor = useColorModeValue('light.primary', 'white');
     const modalBorderColor = useColorModeValue('#0b6f3c', '#90f4c0');
 
-    
     useEffect(() => {
         if (!isOpen) {
             setTimeout(() => {
@@ -103,11 +169,36 @@ const RoomDetailModal = ({ isOpen, onClose, room }: { isOpen: boolean, onClose: 
                 <ModalCloseButton />
                 <ModalBody>
                     <Box position="relative">
-                        <Image src={room.images[currentImageIndex]} alt={`${t('verImagen')} ${currentImageIndex + 1} de ${t(room.nameKey)}`} borderRadius="md" w="100%" h="500px" objectFit="cover" />
+                        <Image 
+                            src={room.images[currentImageIndex]} 
+                            alt={`${t('verImagen')} ${currentImageIndex + 1} de ${t(room.nameKey)}`} 
+                            borderRadius="md" 
+                            w="100%" 
+                            h="500px" 
+                            objectFit="cover" 
+                        />
                         {room.images.length > 1 && (
                             <>
-                                <IconButton aria-label={t('anterior')} icon={<ChevronLeftIcon />} onClick={prevImage} position="absolute" left="10px" top="50%" transform="translateY(-50%)" isRound />
-                                <IconButton aria-label={t('siguiente')} icon={<ChevronRightIcon />} onClick={nextImage} position="absolute" right="10px" top="50%" transform="translateY(-50%)" isRound />
+                                <IconButton 
+                                    aria-label={t('anterior')} 
+                                    icon={<ChevronLeftIcon />} 
+                                    onClick={prevImage} 
+                                    position="absolute" 
+                                    left="10px" 
+                                    top="50%" 
+                                    transform="translateY(-50%)" 
+                                    isRound 
+                                />
+                                <IconButton 
+                                    aria-label={t('siguiente')} 
+                                    icon={<ChevronRightIcon />} 
+                                    onClick={nextImage} 
+                                    position="absolute" 
+                                    right="10px" 
+                                    top="50%" 
+                                    transform="translateY(-50%)" 
+                                    isRound 
+                                />
                             </>
                         )}
                     </Box>
@@ -122,9 +213,8 @@ const RoomDetailModal = ({ isOpen, onClose, room }: { isOpen: boolean, onClose: 
     );
 };
 
-
 export function Habitaciones() {
-    const { t } = useLanguage(); // Hook para traducciones
+    const { t } = useLanguage();
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [selectedRoom, setSelectedRoom] = useState<any | null>(null);
     
@@ -171,21 +261,72 @@ export function Habitaciones() {
     const headingColor = useColorModeValue('light.primary', 'dark.primary');
     const textColor = useColorModeValue('light.text', 'dark.text');
 
+    // Variantes para el contenedor principal
+    const containerVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: {
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94]
+            }
+        }
+    };
+
     return (
         <Box id="habitaciones" py={{ base: 16, md: 24 }} px={{ base: 4, md: 10 }} bg={bgColor}>
-            <VStack spacing={12} maxW="container.xl" mx="auto">
-                <Heading as="h2" size="2xl" color={headingColor} textAlign="center">
-                    {t('nuestrasHabitaciones')}
-                </Heading>
-                <Text fontSize="lg" color={textColor} textAlign="center" maxW="2xl">
-                    {t('habitacionesSubtitle')}
-                </Text>
-                <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={10} w="100%">
-                    {roomsData.map((room, index) => (
-                        <RoomCard key={index} room={room} onOpen={handleOpenModal} index={index} />
-                    ))}
-                </SimpleGrid>
-            </VStack>
+            <MotionBox
+                variants={containerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ 
+                    once: false, 
+                    amount: 0.1,
+                    margin: "-100px 0px -100px 0px"
+                }}
+                style={{
+                    backfaceVisibility: 'hidden',
+                    willChange: 'transform, opacity'
+                }}
+            >
+                <VStack spacing={12} maxW="container.xl" mx="auto">
+                    <Heading 
+                        as="h2" 
+                        size="2xl" 
+                        color={headingColor} 
+                        textAlign="center"
+                        sx={{
+                            backfaceVisibility: 'hidden'
+                        }}
+                    >
+                        {t('nuestrasHabitaciones')}
+                    </Heading>
+                    <Text 
+                        fontSize="lg" 
+                        color={textColor} 
+                        textAlign="center" 
+                        maxW="2xl"
+                        sx={{
+                            backfaceVisibility: 'hidden'
+                        }}
+                    >
+                        {t('habitacionesSubtitle')}
+                    </Text>
+                    <SimpleGrid 
+                        columns={{ base: 1, md: 2, lg: 3 }} 
+                        spacing={10} 
+                        w="100%"
+                        sx={{
+                            backfaceVisibility: 'hidden'
+                        }}
+                    >
+                        {roomsData.map((room, index) => (
+                            <RoomCard key={index} room={room} onOpen={handleOpenModal} index={index} />
+                        ))}
+                    </SimpleGrid>
+                </VStack>
+            </MotionBox>
             <RoomDetailModal isOpen={isOpen} onClose={handleCloseModal} room={selectedRoom} />
         </Box>
     );
