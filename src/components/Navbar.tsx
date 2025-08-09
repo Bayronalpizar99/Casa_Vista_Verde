@@ -39,6 +39,7 @@ export function Navbar() {
     { key: 'experiencias', href: 'experiencias' },
     { key: 'ubicacion', href: 'ubicacion' },
     { key: 'precios', href: 'precios' },
+    { key: 'resenas', href: 'resenas' },
     { key: 'contacto', href: 'contacto' },
   ];
 
@@ -49,8 +50,6 @@ export function Navbar() {
   const borderColor = useColorModeValue('light.text', 'dark.text');
   const accentColor = useColorModeValue('light.accent', 'dark.accent');
   const logoSrc = useColorModeValue(logoLight, logoDark);
-  
-  // Colores para hover con sombra
   const hoverBgColor = useColorModeValue('gray.100', 'gray.700');
   const hoverShadow = useColorModeValue('md', 'dark-lg');
 

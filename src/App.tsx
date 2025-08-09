@@ -6,6 +6,7 @@ import { Ubicacion } from './components/Ubicacion';
 import { Habitaciones } from './components/Habitaciones';
 import { Experiencias } from './components/Experiencias';
 import { Precios } from './components/Precios';
+import { Resenas } from './components/Resenas';
 import { CallToAction } from './components/CallToAction';
 import { Footer } from './components/Footer';
 import { ScrollToTopButton } from './components/ScrollToTopButton';
@@ -29,6 +30,7 @@ function App() {
               <Experiencias />
               <Ubicacion />
               <Precios />
+              <Resenas />
               <CallToAction />
             </>
           }

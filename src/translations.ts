@@ -6,6 +6,7 @@ export const translations = {
     experiencias: 'Nuestros Espacios',
     ubicacion: 'Ubicación',
     precios: 'Precios',
+    resenas: 'Reseñas',
     contacto: 'Contacto',
 
     // --- Textos del Hero ---
@@ -153,6 +154,7 @@ export const translations = {
     experiencias: 'Our Spaces',
     ubicacion: 'Location',
     precios: 'Prices',
+    resenas: 'Reviews',
     contacto: 'Contact',
 
     // --- Hero Texts ---
