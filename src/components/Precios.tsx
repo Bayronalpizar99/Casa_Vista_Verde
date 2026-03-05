@@ -41,19 +41,20 @@ const PriceCard = ({ title, price, description, icon, isPopular, delay }: PriceC
             bg={isPopular ? popularBg : cardBg}
             borderWidth={isPopular ? "2px" : "1px"}
             borderColor={isPopular ? popularBorderColor : borderColor}
-            borderRadius="xl"
+            borderRadius="2xl"
             overflow="hidden"
             position="relative"
             h="100%"
-            shadow="md"
+            shadow="0 2px 12px rgba(0,0,0,0.06)"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: false, amount: 0.3 }}
             transition={{ duration: 0.6, delay }}
             _hover={{
                 transform: 'translateY(-8px)',
-                boxShadow: 'xl',
+                boxShadow: '0 16px 40px rgba(0,0,0,0.12)',
             }}
+            sx={{ transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)' }}
         >
             {isPopular && (
                 <Badge
@@ -361,10 +362,13 @@ export function Precios() {
         >
             <VStack spacing={16} maxW="container.xl" mx="auto">
                 <VStack spacing={6} textAlign="center">
-                    <Heading as="h2" size="2xl" color={headingColor}>
-                        {t('tarifasYPrecios')}
-                    </Heading>
-                    <Text fontSize="xl" color={textColor} maxW="3xl">
+                    <VStack spacing={4}>
+                        <Box w="60px" h="2px" bg={useColorModeValue('light.accent', 'dark.accent')} borderRadius="full" />
+                        <Heading as="h2" fontSize={{ base: '3xl', md: '5xl' }} color={headingColor} fontWeight="600" letterSpacing="0.02em">
+                            {t('tarifasYPrecios')}
+                        </Heading>
+                    </VStack>
+                    <Text fontSize={{ base: 'md', md: 'xl' }} color={textColor} maxW="3xl" lineHeight="1.8">
                         {t('preciosSubtitle')}
                     </Text>
                 </VStack>

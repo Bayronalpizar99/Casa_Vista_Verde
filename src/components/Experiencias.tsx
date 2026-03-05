@@ -29,7 +29,7 @@ const ExperienceCard = ({ experience, onViewImage, isActive }: {
     return (
         <Box
             position="relative"
-            borderRadius="lg"
+            borderRadius="xl"
             overflow="hidden"
             shadow="lg"
             h={{ base: "350px", md: "400px" }}
@@ -39,25 +39,25 @@ const ExperienceCard = ({ experience, onViewImage, isActive }: {
             bg="gray.100"
             _hover={{
                 borderColor: glowColor,
-                boxShadow: `0 0 15px ${glowColor}`,
+                boxShadow: `0 8px 30px rgba(0,0,0,0.15), 0 0 12px ${glowColor}`,
+                '& .exp-image': { transform: 'scale(1.06)' },
             }}
             opacity={isActive === false ? 0.7 : 1}
             transform={isActive === false ? 'scale(0.95)' : 'scale(1)'}
-            transitionDuration="0.3s"
+            transition="all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
         >
-            <Image 
-                src={experience.image} 
-                alt={t(experience.titleKey)} 
-                w="100%" 
-                h="100%" 
+            <Image
+                className="exp-image"
+                src={experience.image}
+                alt={t(experience.titleKey)}
+                w="100%"
+                h="100%"
                 objectFit="cover"
                 objectPosition="center"
                 loading="eager"
                 decoding="sync"
-                onLoad={() => console.log(`✅ Imagen cargada: ${experience.titleKey}`)}
-                onError={(e) => {
-                    console.error(`❌ Error cargando: ${experience.titleKey}`, e);
-                }}
+                transition="transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+                onError={() => {}}
             />
             
             <IconButton
@@ -180,7 +180,7 @@ export function Experiencias() {
     ];
 
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [imagesLoaded, setImagesLoaded] = useState<boolean[]>(new Array(experienceData.length).fill(false));
+    const [, setImagesLoaded] = useState<boolean[]>(new Array(experienceData.length).fill(false));
     const isMobile = useBreakpointValue({ base: true, md: false });
     const cardsToShow = useBreakpointValue({ base: 1, sm: 2, lg: 3, xl: 4 }) || 1;
     const totalCards = experienceData.length;
@@ -192,7 +192,7 @@ export function Experiencias() {
                 return new Promise<void>((resolve) => {
                     const img = new window.Image();
                     img.onload = () => {
-                        console.log(`🖼️ Precargada: ${exp.titleKey}`);
+                        // precargada
                         setImagesLoaded(prev => {
                             const newState = [...prev];
                             newState[idx] = true;
@@ -201,7 +201,7 @@ export function Experiencias() {
                         resolve();
                     };
                     img.onerror = () => {
-                        console.error(`❌ Error precargando: ${exp.titleKey}`);
+                        // error precargando
                         resolve();
                     };
                     img.src = exp.image;
@@ -209,19 +209,17 @@ export function Experiencias() {
             });
 
             await Promise.all(loadPromises);
-            console.log('✅ Todas las imágenes precargadas');
+            // todas precargadas
         };
 
         preloadImages();
     }, []);
 
     const handlePrev = () => {
-        console.log(`⬅️ Prev: ${currentIndex} -> ${currentIndex === 0 ? totalCards - 1 : currentIndex - 1}`);
         setCurrentIndex((prev) => (prev === 0 ? totalCards - 1 : prev - 1));
     };
 
     const handleNext = () => {
-        console.log(`➡️ Next: ${currentIndex} -> ${currentIndex === totalCards - 1 ? 0 : currentIndex + 1}`);
         setCurrentIndex((prev) => (prev === totalCards - 1 ? 0 : prev + 1));
     };
 
@@ -236,19 +234,21 @@ export function Experiencias() {
     const buttonBg = useColorModeValue('white', 'gray.700');
     const buttonColor = useColorModeValue('gray.600', 'gray.200');
 
-    console.log('🔄 Render - Current Index:', currentIndex, 'Images Loaded:', imagesLoaded);
-
     return (
         <Box id="experiencias" py={{ base: 12, md: 24 }} px={{ base: 4, md: 8 }} bg={bgColor}>
             <VStack spacing={{ base: 8, md: 12 }} maxW="container.xl" mx="auto">
-                <Heading as="h2" size={{ base: "xl", md: "2xl" }} color={headingColor} textAlign="center">
-                    {t('experiencias')}
-                </Heading>
-                <Text 
-                    fontSize={{ base: "md", md: "lg" }} 
-                    color={textColor} 
-                    textAlign="center" 
+                <VStack spacing={4}>
+                    <Box w="60px" h="2px" bg={useColorModeValue('light.accent', 'dark.accent')} borderRadius="full" />
+                    <Heading as="h2" fontSize={{ base: "2xl", md: "5xl" }} color={headingColor} textAlign="center" fontWeight="600" letterSpacing="0.02em">
+                        {t('experiencias')}
+                    </Heading>
+                </VStack>
+                <Text
+                    fontSize={{ base: "md", md: "lg" }}
+                    color={textColor}
+                    textAlign="center"
                     maxW="3xl"
+                    lineHeight="1.8"
                     px={{ base: 2, md: 0 }}
                 >
                     {t('experienciasSubtitle')}
@@ -330,10 +330,7 @@ export function Experiencias() {
                                     bg={currentIndex === index ? headingColor : 'gray.300'}
                                     cursor="pointer"
                                     transitionDuration="0.3s"
-                                    onClick={() => {
-                                        console.log(`🎯 Click indicador: ${index}`);
-                                        setCurrentIndex(index);
-                                    }}
+                                    onClick={() => setCurrentIndex(index)}
                                     _hover={{
                                         bg: currentIndex === index ? headingColor : 'gray.400',
                                     }}
@@ -341,9 +338,9 @@ export function Experiencias() {
                             ))}
                         </Flex>
 
-                        {/* Debug info */}
-                        <Text fontSize="xs" color="gray.500" mt={2} textAlign="center">
-                            {currentIndex + 1} / {totalCards} - {experienceData[currentIndex].titleKey}
+                        {/* Slide counter */}
+                        <Text fontSize="xs" color="gray.400" mt={2} textAlign="center" fontWeight="500" letterSpacing="0.05em">
+                            {currentIndex + 1} / {totalCards}
                         </Text>
                     </Box>
                 ) : (

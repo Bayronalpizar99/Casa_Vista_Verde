@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import { theme } from './theme.ts';
 import { LanguageProvider } from './context/LanguageContext.tsx';
 import { BrowserRouter } from 'react-router-dom'; 
@@ -11,6 +11,7 @@ import 'swiper/css/navigation';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
     <ChakraProvider theme={theme}>
       {/* 1. LanguageProvider envuelve todo */}
       <LanguageProvider>
