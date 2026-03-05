@@ -133,6 +133,22 @@ export const translations = {
     toastTitle: 'Solicitud Enviada.',
     toastDescription: 'Gracias por tu interés. Nos pondremos en contacto contigo pronto para confirmar la disponibilidad.',
     
+    // --- Textos de Reseñas ---
+    resenasTitle: 'Lo que dicen nuestros huéspedes',
+    resenasSubtitle: 'Experiencias auténticas de quienes han visitado nuestra casa.',
+    review1: 'Una experiencia absolutamente increíble. El lugar es mágico, rodeado de naturaleza exuberante. Las habitaciones son cómodas y el servicio excepcional.',
+    review2: 'Fue espectacular. Un lugar hermoso donde se respira tranquilidad, paz y armonía con la naturaleza. La fogata que hicimos en la noche sin palabras. Quedamos encantados con el lugar, la casa y las atenciones que nos brindaron',
+    review3: 'El lugar estaba hermoso, bastante amplio. Tenía un gran jardín para que nuestras mascotas pudieran jugar. La casa completamente equipada y acondicionada para pasarla increíble. Frío riquísimo, fogata lista para ser utilizada y todo muy limpio.',
+    review4: 'La atencion excelente. Las vistas y la comodidad inmejorables. Muchas gracias. 100% recomendado y planeamos volver',
+    review5: 'El lugar está muy completo, la casa tiene muchas áreas y opciones para disfrutarla. Está muy completo todo lo que ofrece.',
+    review6: 'Airbnb bien equipado. La cocina tenía la mayoría de las cosas para cocinar hornear. Las camas son cómodas, la vista es maravillosa y las verduras frescas del jardín eran una verdadera delicia, así como la fruta que nos proporcionaron. 5 adultos teníamos mucho espacio en un clima lluvioso.',
+    review7: 'Un paraíso escondido. La atención al detalle es impresionante y cada rincón está pensado para brindar comodidad y belleza.',
+    review8: 'La casa está súper bien equipada. Juan Gabriel y Patricia son excelentes, amables y atentos. Es un lugar de paz, linda vista y frescura. Gracias por todo.',
+    review9: 'Increíble ubicación y servicios de alta calidad. Las habitaciones son espaciosas y elegantes. Ideal para una escapada romántica.',
+    review10: 'Excelente vista, casa muy tranquila, lo considero un sitio para descansar y estar en paz.',
+    review11: 'Es un hospedaje perfecto, los anfitriones te hacen sentir como en casa, muy atentos y dispuestos a ayudarnos en todo y con recomendaciones del lugar, todo muy limpio y aseado, se agradecen las frutas de cortesía, perfecto para pasar en familia.',
+    review12: 'Un lugar que realmente te conecta con la esencia de Costa Rica. La biodiversidad del área es fascinante y las instalaciones son impecables.',
+
     // --- Textos de Política de Privacidad ---
     privacyTitle: 'Política de Privacidad',
     privacyIntro: 'En <strong>Casa Vista Verde</strong> nos comprometemos a proteger la privacidad de nuestros clientes. Los datos personales que recopilamos a través del formulario de reservación son tratados con estricta confidencialidad y conforme a la Ley de Protección de la Persona frente al Tratamiento de sus Datos Personales (Ley N.° 8968, Costa Rica).',
@@ -280,6 +296,22 @@ export const translations = {
     enviarSolicitud: 'Send Request',
     toastTitle: 'Request Sent.',
     toastDescription: 'Thank you for your interest. We will contact you shortly to confirm availability.',
+
+    // --- Reviews Texts ---
+    resenasTitle: 'What our guests say',
+    resenasSubtitle: 'Authentic experiences from those who have visited our home.',
+    review1: 'An absolutely incredible experience. The place is magical, surrounded by lush nature. The rooms are comfortable and the service exceptional.',
+    review2: 'It was spectacular. A beautiful place where you can breathe tranquility, peace and harmony with nature. The bonfire we had at night was beyond words. We were enchanted with the place, the house and the attention they gave us.',
+    review3: 'The place was beautiful, quite spacious. It had a large garden for our pets to play. The house was fully equipped and set up for an incredible time. Wonderfully cold weather, bonfire ready to use and everything very clean.',
+    review4: 'Excellent attention. The views and comfort are unbeatable. Thank you very much. 100% recommended and we plan to return.',
+    review5: 'The place is very complete, the house has many areas and options to enjoy. Everything it offers is very thorough.',
+    review6: 'Well-equipped Airbnb. The kitchen had most things for cooking and baking. The beds are comfortable, the view is wonderful and the fresh vegetables from the garden were a real treat, as well as the fruit they provided. 5 adults had plenty of space in rainy weather.',
+    review7: 'A hidden paradise. The attention to detail is impressive and every corner is designed to provide comfort and beauty.',
+    review8: 'The house is super well equipped. Juan Gabriel and Patricia are excellent, kind and attentive. It is a place of peace, beautiful views and freshness. Thanks for everything.',
+    review9: 'Incredible location and high-quality services. The rooms are spacious and elegant. Ideal for a romantic getaway.',
+    review10: 'Excellent view, very quiet house, I consider it a place to rest and be at peace.',
+    review11: 'It is a perfect accommodation, the hosts make you feel at home, very attentive and willing to help us with everything and with recommendations about the area, everything very clean and tidy, the complimentary fruits are appreciated, perfect for family time.',
+    review12: 'A place that truly connects you with the essence of Costa Rica. The biodiversity of the area is fascinating and the facilities are impeccable.',
 
     // --- Privacy Policy Texts ---
     privacyTitle: 'Privacy Policy',

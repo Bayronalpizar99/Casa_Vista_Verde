@@ -137,6 +137,15 @@ export function Hero() {
             transform: scale(1);
             animation: fadeInScale 0.8s ease-out 0.4s both;
           }
+
+          @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); opacity: 0.6; }
+            50% { transform: translateY(8px); opacity: 1; }
+          }
+
+          .scroll-indicator {
+            animation: scrollBounce 2s ease-in-out infinite;
+          }
         `}
       </style>
 
@@ -249,14 +258,14 @@ export function Hero() {
           transition="all 0.2s"
         />
 
-        {/* Overlay oscuro */}
+        {/* Overlay with gradient for depth */}
         <Box
           position="absolute"
           top="0"
           left="0"
           right="0"
           bottom="0"
-          bg="blackAlpha.600"
+          bgGradient="linear(to-b, blackAlpha.400, blackAlpha.600 50%, blackAlpha.800)"
           zIndex={1}
         />
 
@@ -270,18 +279,24 @@ export function Hero() {
           zIndex={2}
           direction="column"
         >
-          <VStack spacing={6} textAlign="center" color={heroTextColor} flex="1" justify="center">
-            <Heading 
-              as="h1" 
-              size={{ base: '2xl', md: '4xl' }} 
-              fontWeight="bold"
+          <VStack spacing={8} textAlign="center" color={heroTextColor} flex="1" justify="center">
+            <Heading
+              as="h1"
+              fontSize={{ base: '3xl', md: '6xl', lg: '7xl' }}
+              fontWeight="600"
+              letterSpacing={{ base: '0.02em', md: '0.03em' }}
+              lineHeight="1.1"
+              textShadow="0 2px 20px rgba(0,0,0,0.5), 0 4px 40px rgba(0,0,0,0.3)"
               className={`hero-title ${isInView ? 'visible' : ''}`}
             >
               {t('heroTitle')}
             </Heading>
-            <Text 
-              fontSize={{ base: 'lg', md: '2xl' }} 
+            <Text
+              fontSize={{ base: 'md', md: 'xl', lg: '2xl' }}
               maxW="2xl"
+              fontWeight="400"
+              letterSpacing="0.02em"
+              textShadow="0 1px 10px rgba(0,0,0,0.4)"
               className={`hero-subtitle ${isInView ? 'visible' : ''}`}
             >
               {t('heroSubtitle')}
@@ -292,10 +307,20 @@ export function Hero() {
                   size="lg"
                   bg={buttonBg}
                   color={buttonColor}
-                  px={8}
+                  px={10}
+                  py={6}
+                  fontSize="md"
+                  fontWeight="600"
+                  borderRadius="full"
+                  letterSpacing="0.05em"
+                  textTransform="uppercase"
+                  boxShadow="0 4px 20px rgba(0,0,0,0.3)"
                   _hover={{
                     opacity: 0.9,
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 6px 30px rgba(0,0,0,0.4)',
                   }}
+                  transition="all 0.3s ease"
                 >
                   {t('reservarAhora')}
                 </Button>
@@ -303,12 +328,35 @@ export function Hero() {
             </Box>
           </VStack>
 
+          {/* Scroll-down indicator */}
+          <Box
+            position="absolute"
+            bottom={{ base: '70px', md: '80px' }}
+            left="50%"
+            transform="translateX(-50%)"
+            zIndex={3}
+            className="scroll-indicator"
+          >
+            <Box
+              w="28px"
+              h="44px"
+              borderRadius="full"
+              border="2px solid"
+              borderColor="whiteAlpha.500"
+              display="flex"
+              justifyContent="center"
+              pt="8px"
+            >
+              <Box w="3px" h="10px" bg="whiteAlpha.700" borderRadius="full" />
+            </Box>
+          </Box>
+
           {/* Indicadores de puntos */}
-          <HStack 
-            spacing={3} 
-            position="absolute" 
-            bottom={{ base: 6, md: 8 }} 
-            left="50%" 
+          <HStack
+            spacing={3}
+            position="absolute"
+            bottom={{ base: 6, md: 8 }}
+            left="50%"
             transform="translateX(-50%)"
             zIndex={3}
           >

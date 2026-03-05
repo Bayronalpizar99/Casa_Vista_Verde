@@ -92,11 +92,14 @@ export function Ubicacion() {
                 viewport={{ once: false, amount: 0.2 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             >
-                <Heading as="h2" size="2xl" color={headingColor}>
-                    {t('ubicacionTitle')}
-                </Heading>
-                
-                <Text fontSize="lg" maxW="xl" color={textColor}>
+                <VStack spacing={4} align="start">
+                    <Box w="60px" h="2px" bg={useColorModeValue('light.accent', 'dark.accent')} borderRadius="full" />
+                    <Heading as="h2" fontSize={{ base: '3xl', md: '5xl' }} color={headingColor} fontWeight="600" letterSpacing="0.02em">
+                        {t('ubicacionTitle')}
+                    </Heading>
+                </VStack>
+
+                <Text fontSize="lg" maxW="xl" color={textColor} lineHeight="1.8">
                     {t('ubicacionSubtitle')}
                 </Text>
 

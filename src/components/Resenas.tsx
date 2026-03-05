@@ -6,27 +6,28 @@ import { StarIcon } from '@chakra-ui/icons';
 import { useLanguage } from '../context/LanguageContext';
 import { useEffect, useRef } from 'react';
 
-// --- Datos de las Reseñas (sin cambios) ---
+// --- Datos de las Reseñas ---
 interface Review {
-    id: number; name: string; avatar: string; rating: number; date: string; comment: string;
+    id: number; name: string; avatar: string; rating: number; date: string; commentKey: string;
 }
 const reviews: Review[] = [
-    { id: 1, name: "María González", avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2024-01-15", comment: "Una experiencia absolutamente increíble. El lugar es mágico, rodeado de naturaleza exuberante. Las habitaciones son cómodas y el servicio excepcional." },
-    { id: 2, name: "Cecilia", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2024-01-12", comment: "Fue espectacular. Un lugar hermoso donde se respira tranquilidad, paz y armonía con la naturaleza. La fogata que hicimos en la noche sin palabras. Quedamos encantados con el lugar, la casa y las atenciones que nos brindaron" },
-    { id: 3, name: "Ana Martín", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face", rating: 4, date: "2024-01-10", comment: "El lugar estaba hermoso, bastante amplio. Tenía un gran jardín para que nuestras mascotas pudieran jugar. La casa completamente equipada y acondicionada para pasarla increíble. Frío riquísimo, fogata lista para ser utilizada y todo muy limpio." },
-    { id: 4, name: "Diego López", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2024-01-08", comment: "La atencion excelente. Las vistas y la comodidad inmejorables. Muchas gracias. 100% recomendado y planeamos volver" },
-    { id: 5, name: "Laura Jiménez", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2024-01-05", comment: "El lugar está muy completo, la casa tiene muchas áreas y opciones para disfrutarla. Está muy completo todo lo que ofrece." },
-    { id: 6, name: "Roberto Castillo", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face", rating: 4, date: "2024-01-02", comment: "Airbnb bien equipado. La cocina tenía la mayoría de las cosas para cocinar hornear. Las camas son cómodas, la vista es maravillosa y las verduras frescas del jardín eran una verdadera delicia, así como la fruta que nos proporcionaron. 5 adultos teníamos mucho espacio en un clima lluvioso." },
-    { id: 7, name: "Carmen Vega", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2023-12-28", comment: "Un paraíso escondido. La atención al detalle es impresionante y cada rincón está pensado para brindar comodidad y belleza." },
-    { id: 8, name: "Fernando Ruiz", avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2023-12-25", comment: "La casa está súper bien equipada. Juan Gabriel y Patricia son excelentes, amables y atentos. Es un lugar de paz, linda vista y frescura. Gracias por todo." },
-    { id: 9, name: "Patricia Morales", avatar: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=face", rating: 4, date: "2023-12-22", comment: "Increíble ubicación y servicios de alta calidad. Las habitaciones son espaciosas y elegantes. Ideal para una escapada romántica." },
-    { id: 10, name: "Alejandro Herrera", avatar: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2023-12-20", comment: "Excelente vista, casa muy tranquila, lo considero un sitio para descansar y estar en paz." },
-    { id: 11, name: "Sofía Mendoza", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2023-12-18", comment: "Es un hospedaje perfecto, los anfitriones te hacen sentir como en casa, muy atentos y dispuestos a ayudarnos en todo y con recomendaciones del lugar, todo muy limpio y aseado, se agradecen las frutas de cortesía, perfecto para pasar en familia." },
-    { id: 12, name: "Javier Sandoval", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop&crop=face", rating: 4, date: "2023-12-15", comment: "Un lugar que realmente te conecta con la esencia de Costa Rica. La biodiversidad del área es fascinante y las instalaciones son impecables." }
+    { id: 1, name: "María González", avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2024-01-15", commentKey: "review1" },
+    { id: 2, name: "Cecilia", avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2024-01-12", commentKey: "review2" },
+    { id: 3, name: "Ana Martín", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face", rating: 4, date: "2024-01-10", commentKey: "review3" },
+    { id: 4, name: "Diego López", avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2024-01-08", commentKey: "review4" },
+    { id: 5, name: "Laura Jiménez", avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2024-01-05", commentKey: "review5" },
+    { id: 6, name: "Roberto Castillo", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face", rating: 4, date: "2024-01-02", commentKey: "review6" },
+    { id: 7, name: "Carmen Vega", avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2023-12-28", commentKey: "review7" },
+    { id: 8, name: "Fernando Ruiz", avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2023-12-25", commentKey: "review8" },
+    { id: 9, name: "Patricia Morales", avatar: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=100&h=100&fit=crop&crop=face", rating: 4, date: "2023-12-22", commentKey: "review9" },
+    { id: 10, name: "Alejandro Herrera", avatar: "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2023-12-20", commentKey: "review10" },
+    { id: 11, name: "Sofía Mendoza", avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=face", rating: 5, date: "2023-12-18", commentKey: "review11" },
+    { id: 12, name: "Javier Sandoval", avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop&crop=face", rating: 4, date: "2023-12-15", commentKey: "review12" }
 ];
 
 
 const ReviewCard = ({ review }: { review: Review }) => {
+    const { t, lang } = useLanguage();
     const cardBg = useColorModeValue('white', 'transparent');
     const borderColor = useColorModeValue('gray.200', 'dark.text');
     const hoverBorderColor = useColorModeValue('light.text', 'dark.text');
@@ -36,7 +37,7 @@ const ReviewCard = ({ review }: { review: Review }) => {
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
-        return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'short', day: 'numeric' });
+        return date.toLocaleDateString(lang === 'es' ? 'es-ES' : 'en-US', { year: 'numeric', month: 'short', day: 'numeric' });
     };
 
     const renderStars = (rating: number) => {
@@ -54,29 +55,46 @@ const ReviewCard = ({ review }: { review: Review }) => {
     };
 
     return (
-        <Box 
-            bg={cardBg} 
-            p={4} 
-            borderRadius="lg" 
-            border="2px" 
-            borderColor={borderColor} 
-            shadow="sm" 
-            minW="400px" 
-            maxW="400px" 
+        <Box
+            bg={cardBg}
+            p={5}
+            borderRadius="xl"
+            border="1px"
+            borderColor={borderColor}
+            shadow="0 2px 8px rgba(0,0,0,0.04)"
+            minW="400px"
+            maxW="400px"
             h="220px"
-            display="flex" 
-            flexDirection="column" 
+            display="flex"
+            flexDirection="column"
             mx={2}
             position="relative"
             overflow="hidden"
             cursor="pointer"
             _hover={{
-                borderColor: hoverBorderColor
+                borderColor: hoverBorderColor,
+                shadow: '0 4px 16px rgba(0,0,0,0.08)',
+                transform: 'translateY(-2px)',
             }}
-            transition="border-color 0.2s ease"
+            transition="all 0.3s ease"
         >
+            {/* Decorative quotation mark */}
+            <Text
+                position="absolute"
+                top="-4px"
+                right="16px"
+                fontSize="5xl"
+                fontFamily='"Cormorant Garamond", serif'
+                fontWeight="700"
+                color={borderColor}
+                opacity={0.3}
+                lineHeight="1"
+                userSelect="none"
+            >
+                "
+            </Text>
             <HStack spacing={3} mb={3}>
-                <Avatar src={review.avatar} name={review.name} size="sm"/>
+                <Avatar src={review.avatar} name={review.name} size="sm" />
                 <Box flex="1">
                     <HStack justify="space-between" align="start">
                         <Box>
@@ -91,14 +109,15 @@ const ReviewCard = ({ review }: { review: Review }) => {
                     </HStack>
                 </Box>
             </HStack>
-            <Text 
-                color={textColor} 
-                fontSize="sm" 
-                lineHeight="1.4" 
-                flex="1" 
+            <Text
+                color={textColor}
+                fontSize="sm"
+                lineHeight="1.5"
+                flex="1"
                 noOfLines={5}
+                fontStyle="italic"
             >
-                {review.comment}
+                {t(review.commentKey as any)}
             </Text>
         </Box>
     );
@@ -217,7 +236,7 @@ const InfiniteCarousel = ({ reviews, direction = 'left' }: { reviews: Review[]; 
 
 // --- Componente Principal Resenas ---
 export function Resenas() {
-    const { } = useLanguage();
+    const { t } = useLanguage();
     const bgColor = useColorModeValue('light.background', 'dark.background');
     const headingColor = useColorModeValue('light.primary', 'dark.primary');
     const textColor = useColorModeValue('light.text', 'dark.text');
@@ -247,11 +266,14 @@ export function Resenas() {
             >
                 <VStack spacing={12} maxW="full" mx="auto">
                     <VStack spacing={6} textAlign="center" px={{ base: 4, md: 10 }}>
-                        <Heading as="h2" size="2xl" color={headingColor}>
-                            Lo que dicen nuestros huéspedes
-                        </Heading>
-                        <Text fontSize="xl" color={textColor} maxW="3xl">
-                            Experiencias auténticas de quienes han visitado nuestra casa.
+                        <VStack spacing={4}>
+                            <Box w="60px" h="2px" bg={useColorModeValue('light.accent', 'dark.accent')} borderRadius="full" />
+                            <Heading as="h2" fontSize={{ base: '3xl', md: '5xl' }} color={headingColor} fontWeight="600" letterSpacing="0.02em">
+                                {t('resenasTitle')}
+                            </Heading>
+                        </VStack>
+                        <Text fontSize={{ base: 'md', md: 'xl' }} color={textColor} maxW="3xl" lineHeight="1.8">
+                            {t('resenasSubtitle')}
                         </Text>
                     </VStack>
                     <VStack spacing={8} w="full">
