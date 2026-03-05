@@ -16,8 +16,8 @@ export function Footer() {
     const iconBg = useColorModeValue('white', 'gray.700');
 
     return (
-        <Box bg={bgColor} color={textColor}>
-            <Container as={Stack} maxW={'6xl'} py={10}>
+        <Box bg={bgColor} color={textColor} borderTop="1px solid" borderColor={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}>
+            <Container as={Stack} maxW={'6xl'} py={12}>
                 <Flex direction={{ base: 'column', md: 'row' }} justify="space-between" align="center">
                     
                     <VStack spacing={0} align="center" mb={{ base: 8, md: 0 }}>
@@ -60,17 +60,21 @@ export function Footer() {
                     </VStack>
                     
                     <VStack spacing={4} align={{ base: 'center', md: 'flex-start' }} mt={{base: 0, md: 24}}>
-                        <Text fontWeight="bold" color={headingColor}>{t('contacto')}</Text>
-                        <Text>Email: casavistaverde2025@gmail.com</Text>
-                        <Text>WhatsApp: (+506) 8315-4952 </Text>
-                        <Text>WhatsApp 2: (+506) 8822-1686 </Text>
+                        <Text fontWeight="bold" color={headingColor} fontSize="sm" textTransform="uppercase" letterSpacing="0.1em">{t('contacto')}</Text>
+                        <VStack spacing={1} align={{ base: 'center', md: 'flex-start' }} fontSize="sm" opacity={0.85}>
+                            <Text>Email: casavistaverde2025@gmail.com</Text>
+                            <Text>WhatsApp: (+506) 8315-4952 </Text>
+                            <Text>WhatsApp 2: (+506) 8822-1686 </Text>
+                        </VStack>
                     </VStack>
 
                     <VStack spacing={4} align={{ base: 'center', md: 'flex-start' }} mt={{base: 8, md: 24}}>
-                        <Text fontWeight="bold" color={headingColor}>{t('footerDireccion')}</Text>
-                        <Text>{t('footerCalle')}</Text>
-                        <Text>{t('footerLugar')}</Text>
-                        <Text>{t('footerPais')}</Text>
+                        <Text fontWeight="bold" color={headingColor} fontSize="sm" textTransform="uppercase" letterSpacing="0.1em">{t('footerDireccion')}</Text>
+                        <VStack spacing={1} align={{ base: 'center', md: 'flex-start' }} fontSize="sm" opacity={0.85}>
+                            <Text>{t('footerCalle')}</Text>
+                            <Text>{t('footerLugar')}</Text>
+                            <Text>{t('footerPais')}</Text>
+                        </VStack>
                     </VStack>
 
                 </Flex>

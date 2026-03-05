@@ -43,7 +43,6 @@ export function Navbar() {
     { key: 'contacto', href: 'contacto' },
   ];
 
-  const navBgColor = useColorModeValue('light.background', 'dark.background');
   const navTextColor = useColorModeValue('light.text', 'dark.text');
   const secondaryColor = useColorModeValue('light.secondary', 'dark.secondary');
   const hamburgerBgColor = useColorModeValue('light.secondary', 'dark.secondary');
@@ -114,15 +113,19 @@ export function Navbar() {
 
   return (
     <Box
-      bg={navBgColor}
+      bg={useColorModeValue('rgba(240,244,242,0.85)', 'rgba(11,15,13,0.85)')}
       color={navTextColor}
       px={{ base: 4, md: 8 }}
       pt={4}
       pb={1}
-      shadow="md"
+      shadow="sm"
       position="sticky"
       top="0"
       zIndex="sticky"
+      backdropFilter="saturate(180%) blur(16px)"
+      borderBottom="1px solid"
+      borderColor={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+      transition="all 0.3s ease"
     >
       <Flex h={16} alignItems="center" justifyContent="space-between">
         {/* Logo with simple zoom hover effect */}
@@ -200,56 +203,61 @@ export function Navbar() {
       </Flex>
 
       {/* Mobile menu */}
-      {isOpen ? (
-        <Box pb={4} display={{ md: 'none' }}>
-          <Stack as="nav" spacing={4} align="center">
-            {/* Navigation links */}
-            {links}
-            
-            {/* Divider */}
-            <Box width="80%" pt={2}>
-              <Divider borderColor={borderColor} />
-            </Box>
-            
-            {/* Theme and language controls for mobile */}
-            <HStack spacing={6} pt={2}>
-              <IconButton
-                aria-label="Toggle theme"
-                icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-                onClick={toggleColorMode}
-                variant="ghost"
-                size="lg"
-                color={navTextColor}
-                borderRadius="md"
-                transition="all 0.2s ease-in-out"
-                _hover={{ 
-                  bg: hoverBgColor,
-                  shadow: hoverShadow,
-                  transform: 'translateY(-1px)'
-                }}
-              />
-              <Button
-                onClick={toggleLang}
-                variant="ghost"
-                size="md"
-                textTransform="uppercase"
-                color={navTextColor}
-                fontSize="lg"
-                fontWeight="bold"
-                borderRadius="md"
-                transition="all 0.2s ease-in-out"
-                _hover={{ 
-                  bg: hoverBgColor,
-                  shadow: hoverShadow,
-                  transform: 'translateY(-1px)'
-                }}
-              >
-                {lang}
-              </Button>
-            </HStack>
-          </Stack>
-        </Box>
-      ) : null}
+      <Box
+        pb={4}
+        display={{ md: 'none' }}
+        overflow="hidden"
+        maxH={isOpen ? '600px' : '0'}
+        opacity={isOpen ? 1 : 0}
+        transition="all 0.4s cubic-bezier(0.4, 0, 0.2, 1)"
+      >
+        <Stack as="nav" spacing={4} align="center" pt={2}>
+          {/* Navigation links */}
+          {links}
+
+          {/* Divider */}
+          <Box width="80%" pt={2}>
+            <Divider borderColor={borderColor} />
+          </Box>
+
+          {/* Theme and language controls for mobile */}
+          <HStack spacing={6} pt={2}>
+            <IconButton
+              aria-label="Toggle theme"
+              icon={colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
+              onClick={toggleColorMode}
+              variant="ghost"
+              size="lg"
+              color={navTextColor}
+              borderRadius="md"
+              transition="all 0.2s ease-in-out"
+              _hover={{
+                bg: hoverBgColor,
+                shadow: hoverShadow,
+                transform: 'translateY(-1px)'
+              }}
+            />
+            <Button
+              onClick={toggleLang}
+              variant="ghost"
+              size="md"
+              textTransform="uppercase"
+              color={navTextColor}
+              fontSize="lg"
+              fontWeight="bold"
+              borderRadius="md"
+              transition="all 0.2s ease-in-out"
+              _hover={{
+                bg: hoverBgColor,
+                shadow: hoverShadow,
+                transform: 'translateY(-1px)'
+              }}
+            >
+              {lang}
+            </Button>
+          </HStack>
+        </Stack>
+      </Box>
     </Box>
   );
 }

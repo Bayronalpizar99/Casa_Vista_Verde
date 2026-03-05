@@ -13,13 +13,34 @@ export function CallToAction() {
 
     return (
         <>
-            <Box id="contacto" bg={bgColor} color={textColor} py={{ base: 12, md: 20 }}>
-                <VStack spacing={{ base: 6, md: 8 }} textAlign="center" px={{ base: 4, md: 0 }}>
-                    <Heading 
-                        as="h2" 
-                        size={{ base: "xl", md: "2xl" }} 
+            <Box
+                id="contacto"
+                bg={bgColor}
+                color={textColor}
+                py={{ base: 16, md: 24 }}
+                position="relative"
+                overflow="hidden"
+                _before={{
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    opacity: 0.06,
+                    backgroundImage: `radial-gradient(circle at 1px 1px, ${textColor} 1px, transparent 0)`,
+                    backgroundSize: '32px 32px',
+                    pointerEvents: 'none',
+                }}
+            >
+                <VStack spacing={{ base: 8, md: 10 }} textAlign="center" px={{ base: 4, md: 0 }} position="relative" zIndex={1}>
+                    <Heading
+                        as="h2"
+                        fontSize={{ base: "2xl", md: "5xl" }}
                         px={4}
-                        lineHeight={{ base: "shorter", md: "base" }}
+                        lineHeight="1.2"
+                        fontWeight="600"
+                        letterSpacing="0.02em"
                     >
                         {t('ctaTitle')}
                     </Heading>
