@@ -54,29 +54,46 @@ const ReviewCard = ({ review }: { review: Review }) => {
     };
 
     return (
-        <Box 
-            bg={cardBg} 
-            p={4} 
-            borderRadius="lg" 
-            border="2px" 
-            borderColor={borderColor} 
-            shadow="sm" 
-            minW="400px" 
-            maxW="400px" 
+        <Box
+            bg={cardBg}
+            p={5}
+            borderRadius="xl"
+            border="1px"
+            borderColor={borderColor}
+            shadow="0 2px 8px rgba(0,0,0,0.04)"
+            minW="400px"
+            maxW="400px"
             h="220px"
-            display="flex" 
-            flexDirection="column" 
+            display="flex"
+            flexDirection="column"
             mx={2}
             position="relative"
             overflow="hidden"
             cursor="pointer"
             _hover={{
-                borderColor: hoverBorderColor
+                borderColor: hoverBorderColor,
+                shadow: '0 4px 16px rgba(0,0,0,0.08)',
+                transform: 'translateY(-2px)',
             }}
-            transition="border-color 0.2s ease"
+            transition="all 0.3s ease"
         >
+            {/* Decorative quotation mark */}
+            <Text
+                position="absolute"
+                top="-4px"
+                right="16px"
+                fontSize="5xl"
+                fontFamily='"Cormorant Garamond", serif'
+                fontWeight="700"
+                color={borderColor}
+                opacity={0.3}
+                lineHeight="1"
+                userSelect="none"
+            >
+                "
+            </Text>
             <HStack spacing={3} mb={3}>
-                <Avatar src={review.avatar} name={review.name} size="sm"/>
+                <Avatar src={review.avatar} name={review.name} size="sm" />
                 <Box flex="1">
                     <HStack justify="space-between" align="start">
                         <Box>
@@ -91,12 +108,13 @@ const ReviewCard = ({ review }: { review: Review }) => {
                     </HStack>
                 </Box>
             </HStack>
-            <Text 
-                color={textColor} 
-                fontSize="sm" 
-                lineHeight="1.4" 
-                flex="1" 
+            <Text
+                color={textColor}
+                fontSize="sm"
+                lineHeight="1.5"
+                flex="1"
                 noOfLines={5}
+                fontStyle="italic"
             >
                 {review.comment}
             </Text>
@@ -247,10 +265,13 @@ export function Resenas() {
             >
                 <VStack spacing={12} maxW="full" mx="auto">
                     <VStack spacing={6} textAlign="center" px={{ base: 4, md: 10 }}>
-                        <Heading as="h2" size="2xl" color={headingColor}>
-                            Lo que dicen nuestros huéspedes
-                        </Heading>
-                        <Text fontSize="xl" color={textColor} maxW="3xl">
+                        <VStack spacing={4}>
+                            <Box w="60px" h="2px" bg={useColorModeValue('light.accent', 'dark.accent')} borderRadius="full" />
+                            <Heading as="h2" fontSize={{ base: '3xl', md: '5xl' }} color={headingColor} fontWeight="600" letterSpacing="0.02em">
+                                Lo que dicen nuestros huéspedes
+                            </Heading>
+                        </VStack>
+                        <Text fontSize={{ base: 'md', md: 'xl' }} color={textColor} maxW="3xl" lineHeight="1.8">
                             Experiencias auténticas de quienes han visitado nuestra casa.
                         </Text>
                     </VStack>
