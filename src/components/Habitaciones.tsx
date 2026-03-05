@@ -64,49 +64,59 @@ const RoomCard = ({ room, onOpen, index }: { room: any, onOpen: (room: any) => v
             <Box
                 bg={cardBg}
                 borderWidth="1px"
-                borderRadius="lg"
+                borderRadius="xl"
                 overflow="hidden"
-                transition="all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+                transition="all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
                 h="100%"
                 borderColor={glowColor}
-                shadow={`0 0 2px ${glowColor}`}
+                shadow={`0 2px 8px rgba(0,0,0,0.08)`}
                 sx={{
                     backfaceVisibility: 'hidden',
                     transform: 'translate3d(0, 0, 0)',
                     willChange: 'transform, box-shadow'
                 }}
                 _hover={{
-                    transform: 'translate3d(0, -5px, 0)',
-                    shadow: `0 0 6px ${glowColor}`,
+                    transform: 'translate3d(0, -8px, 0)',
+                    shadow: `0 12px 32px rgba(0,0,0,0.12), 0 0 8px ${glowColor}`,
+                    '& .room-image': {
+                        transform: 'scale(1.08)',
+                    }
                 }}
             >
-                <Image 
-                    src={room.images[0]} 
-                    alt={t(room.nameKey)} 
-                    h="250px" 
-                    w="100%" 
-                    objectFit="cover"
-                    sx={{
-                        backfaceVisibility: 'hidden',
-                        willChange: 'transform'
-                    }}
-                />
+                <Box overflow="hidden" h="260px">
+                    <Image
+                        className="room-image"
+                        src={room.images[0]}
+                        alt={t(room.nameKey)}
+                        h="100%"
+                        w="100%"
+                        objectFit="cover"
+                        transition="transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
+                        sx={{
+                            backfaceVisibility: 'hidden',
+                            willChange: 'transform'
+                        }}
+                    />
+                </Box>
                 <VStack p={6} align="start" spacing={4}>
-                    <Heading 
-                        as="h3" 
-                        size="lg" 
+                    <Heading
+                        as="h3"
+                        size="lg"
                         color={headingColor}
+                        fontWeight="600"
+                        letterSpacing="0.01em"
                         sx={{
                             backfaceVisibility: 'hidden'
                         }}
                     >
                         {t(room.nameKey)}
                     </Heading>
-                    <List spacing={2}>
+                    <List spacing={3}>
                         {room.amenities.map((amenity: any, idx: number) => (
-                            <ListItem 
-                                key={idx} 
+                            <ListItem
+                                key={idx}
                                 color={textColor}
+                                fontSize="sm"
                                 sx={{
                                     backfaceVisibility: 'hidden'
                                 }}
@@ -116,12 +126,18 @@ const RoomCard = ({ room, onOpen, index }: { room: any, onOpen: (room: any) => v
                             </ListItem>
                         ))}
                     </List>
-                    <Button 
-                        bg={buttonBg} 
-                        color={buttonColor} 
-                        alignSelf="flex-end" 
-                        onClick={() => onOpen(room)} 
-                        _hover={{ opacity: 0.9 }}
+                    <Button
+                        bg={buttonBg}
+                        color={buttonColor}
+                        alignSelf="flex-end"
+                        onClick={() => onOpen(room)}
+                        borderRadius="full"
+                        px={6}
+                        size="sm"
+                        fontWeight="600"
+                        letterSpacing="0.03em"
+                        textTransform="uppercase"
+                        _hover={{ opacity: 0.9, transform: 'translateY(-1px)' }}
                         sx={{
                             transition: 'all 0.2s ease',
                             backfaceVisibility: 'hidden',
@@ -291,22 +307,28 @@ export function Habitaciones() {
                 }}
             >
                 <VStack spacing={12} maxW="container.xl" mx="auto">
-                    <Heading 
-                        as="h2" 
-                        size="2xl" 
-                        color={headingColor} 
+                    <VStack spacing={4}>
+                        <Box w="60px" h="2px" bg={useColorModeValue('light.accent', 'dark.accent')} borderRadius="full" />
+                        <Heading
+                            as="h2"
+                            fontSize={{ base: '3xl', md: '5xl' }}
+                            color={headingColor}
+                            textAlign="center"
+                            fontWeight="600"
+                            letterSpacing="0.02em"
+                            sx={{
+                                backfaceVisibility: 'hidden'
+                            }}
+                        >
+                            {t('nuestrasHabitaciones')}
+                        </Heading>
+                    </VStack>
+                    <Text
+                        fontSize={{ base: 'md', md: 'lg' }}
+                        color={textColor}
                         textAlign="center"
-                        sx={{
-                            backfaceVisibility: 'hidden'
-                        }}
-                    >
-                        {t('nuestrasHabitaciones')}
-                    </Heading>
-                    <Text 
-                        fontSize="lg" 
-                        color={textColor} 
-                        textAlign="center" 
                         maxW="2xl"
+                        lineHeight="1.8"
                         sx={{
                             backfaceVisibility: 'hidden'
                         }}

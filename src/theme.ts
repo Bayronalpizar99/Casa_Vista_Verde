@@ -28,8 +28,8 @@ export const theme = extendTheme({
   config,
   colors,
   fonts: {
-    heading: 'Inter, system-ui, sans-serif',
-    body: 'Inter, system-ui, sans-serif',
+    heading: '"Cormorant Garamond", Georgia, serif',
+    body: '"DM Sans", system-ui, sans-serif',
   },
   styles: {
     global: (props: any) => ({
